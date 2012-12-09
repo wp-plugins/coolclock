@@ -48,7 +48,31 @@ Now visit your Widgets admin page and add the Analog Clock widget to your sideba
 
 == Frequently Asked Questions ==
 
-= How can I create my custom skin? =
+= Where do I start? =
+
+There is no options page. Just go to your Appearance > Widgets admin page and find the new Analog Clock widget. Add it to your sidebar and change settings if you want to see another than the default clock.
+
+
+= What options does the widget have? =
+
+First of all, you can pick a preset skin. There are 21 skins made by other users and one Minimal skin that only shows the clock arms, that can be useful for placing over a custom background image. Then there are:
+
+- Custom skin parameters - see question below
+- Radius - changes the clock size
+- Hide second hand
+- Show digital time
+- GMT Offset - use this if you want one or more clocks to show the time for other timezones. 
+
+Then there are some background options. You can ignore these if you are happy with one of the preset clock skins. But if you want to create your own clock then these can serve you well:
+
+- Background image - Define the full URL or path to an image to serve as background
+- Repeat image
+- Background position - center, top, right, bottom or left of the wrapping div (define div size below)
+- Width and height - define the size of the wrapping div that carries the background image
+- Clock position relative to background - here you can position the clock relative to top or bottom and left or right border of the wrapping div (as defined above)
+
+
+= How can I create a custom skin? =
 
 Select **Skin: Custom** and copie the following code to a text document on your computer.
 
@@ -68,7 +92,12 @@ No copy your modified parameters into the field **Custom skin parameters:** and 
 
 See for more examples [moreskins.js](http://randomibis.com/coolclock/moreskins.js).
 
-If you make a nice skin and would like to share it then send it to simon dot baird at gmail dot com.
+
+= Can I share this fantastic skin I created? =
+
+If you make a nice skin and would like to share it, then send it to the script creator at simon dot baird at gmail dot com or paste the custom parameters into a new ticket (mark it as 'not a support question') on the Support tab. 
+
+Thanks for sharing! :)
 
 
 == Known Issues ==

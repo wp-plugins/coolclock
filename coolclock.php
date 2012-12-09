@@ -103,14 +103,14 @@ class CoolClock_Widget extends WP_Widget {
 
 	$defaults = array ( 
 		'title' => '',				// Widget title
-		'skin' => 'chunkySwiss',		// Clock skin style
+		'skin' => 'swissRail',		// Clock skin style
 		'custom_skin' => '',
-		'radius' => '85',			// Clock radius
+		'radius' => '100',			// Clock radius
 		'noseconds' => false,			// Hide seconds
 		'gmtoffset' => '',			// GMT offset
 		'showdigital' => false,			// Show digital time
 		'background_image' => '',		// Custom background image url
-		'background_position' => 'center',	
+		'background_position' => 'left',	
 		'background_repeat' => false,	
 		'background_height' => '',		// Set height for wrapping div that carries the background image
 		'background_width' => '',		// Set width for wrapping div that carries the background image
@@ -184,11 +184,12 @@ class CoolClock_Widget extends WP_Widget {
         <p><label for="<?php echo $this->get_field_id('background_image'); ?>"><?php _e('Image URL:', 'coolclock'); ?> </label>
           <input class="widefat" id="<?php echo $this->get_field_id('background_image'); ?>" name="<?php echo $this->get_field_name('background_image'); ?>" type="text" value="<?php echo $background_image; ?>" /></p>
           
+ 	<p><input id="<?php echo $this->get_field_id('background_repeat'); ?>" name="<?php echo $this->get_field_name('background_repeat'); ?>" type="checkbox" value=<?php echo ( $instance['background_repeat'] ) ? '"true"  checked="checked"' : '"false"'; ?> />
+	<label for="<?php echo $this->get_field_id('background_repeat'); ?>"><?php _e('Repeat image', 'coolclock'); ?></label></p>
+
         <p><label for="<?php echo $this->get_field_id('background_position'); ?>"><?php _e('Position:', 'coolclock'); ?></label>
 		<select class="select" id="<?php echo $this->get_field_id('background_position'); ?>" name="<?php echo $this->get_field_name('background_position'); ?>"><option value="left"<?php if ($instance['background_position'] == 'left') echo " selected=\"selected\"" ?>><?php _e('left', 'coolclock') ?></option><option value="top"<?php if ($instance['background_position'] == 'top') echo " selected=\"selected\"" ?>><?php _e('top', 'coolclock') ?></option><option value="right"<?php if ($instance['background_position'] == 'right') echo " selected=\"selected\"" ?>><?php _e('right', 'coolclock') ?></option><option value="bottom"<?php if ($instance['background_position'] == 'bottom') echo " selected=\"selected\"" ?>><?php _e('bottom', 'coolclock') ?></option><option value="center"<?php if ($instance['background_position'] == 'center') echo " selected=\"selected\"" ?>><?php _e('center', 'coolclock') ?></option></select></p>
         
- 	<p><input id="<?php echo $this->get_field_id('background_repeat'); ?>" name="<?php echo $this->get_field_name('background_repeat'); ?>" type="checkbox" value=<?php echo ( $instance['background_repeat'] ) ? '"true"  checked="checked"' : '"false"'; ?> />
-	<label for="<?php echo $this->get_field_id('background_repeat'); ?>"><?php _e('Repeat image', 'coolclock'); ?></label></p>
 
         <p><label for="<?php echo $this->get_field_id('background_width'); ?>"><?php _e('Width'); ?></label>
           <input class="small-text" id="<?php echo $this->get_field_id('background_width'); ?>" name="<?php echo $this->get_field_name('background_width'); ?>" type="number" value="<?php echo $instance['background_width']; ?>" />
