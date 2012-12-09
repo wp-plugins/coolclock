@@ -1,4 +1,4 @@
-=== CoolClock - The Javascript Analog Clock for WordPress ===
+=== CoolClock - a Javascript Analog Clock ===
 Contributors: RavanH
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravanhagen%40gmail%2ecom&item_name=CoolClock%20for%20WordPress&item_number=1%2e3%2e4%2e9&no_shipping=0&tax=0&charset=UTF%2d8&currency_code=EUR
 Tags: fancybox, lightbox, gallery, image, photo, video, flash, nextgen, overlay, youtube, vimeo, dailymotion, pdf, iframe, swf, jquery
@@ -10,9 +10,11 @@ Show an analog clock on your WordPress site.
 
 == Description ==
 
-This plugin integrates [CoolClock - The Javascript Analog Clock](http://randomibis.com/coolclock/) into your WordPress site. Currently you can add it as a Widget to your sidebar. A shortcode to insert a clock into your posts and pages and a PHP function to your custom theme.
+This plugin integrates [CoolClock - The Javascript Analog Clock](http://randomibis.com/coolclock/) into your WordPress site. Currently you can add it as a Widget to your sidebar. A shortcode to insert a clock into your posts and pages and a PHP function to your custom theme is planned for the next release.
 
 There are 22 different preset skins to choose from plus a Custom skin option to create your own. See [the FAQ's](http://wordpress.org/extend/plugins/coolclock/faq/) to learn how to configure your own skin settings.
+
+CoolClock is writen in javascript (Prototype and a little jQuery) and uses no flash, so it is compatible with pads and other mobile devices.
 
 **Recommended:**
 For increased site performance, simply install and activate the plugin [Use Google Libraries](http://wordpress.org/extend/plugins/use-google-libraries/) to load jQuery from Googles CDN.
