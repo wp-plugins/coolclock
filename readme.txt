@@ -12,12 +12,21 @@ Show an analog clock on your WordPress site.
 
 This plugin integrates [CoolClock - The Javascript Analog Clock](http://randomibis.com/coolclock/) into your WordPress site. Currently you can add it as a Widget to your sidebar. A shortcode to insert a clock into your posts and pages and a PHP function to your custom theme is planned for the next release.
 
-There are 22 different preset skins to choose from plus a Custom skin option to create your own. See [the FAQ's](http://wordpress.org/extend/plugins/coolclock/faq/) to learn how to configure your own skin settings.
+= Features =
 
-CoolClock is writen in javascript (Prototype and a little jQuery) and uses no flash, so it is compatible with pads and other mobile devices.
+- No flash means compatible with pads and most other mobile devices
+- 21 different skins to choose from 
+- Custom skin option to create your own skin style
 
-**Recommended:**
-For increased site performance, simply install and activate the plugin [Use Google Libraries](http://wordpress.org/extend/plugins/use-google-libraries/) to load jQuery from Googles CDN.
+See [the FAQ's](http://wordpress.org/extend/plugins/coolclock/faq/) to learn how to configure your own skin settings.
+
+= Pro features =
+
+- Extra skins
+- Custom background image 
+- Positioning options
+
+Pro features are availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/).
 
 = Translators =
 
@@ -65,7 +74,7 @@ First of all, you can pick a preset skin. There are 21 skins made by other users
 - Show digital time
 - GMT Offset - use this if you want one or more clocks to show the time for other timezones. 
 
-Then there are some background options. You can ignore these if you are happy with one of the preset clock skins. But if you want to create your own clock then these can serve you well:
+Then there are some options availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/) which allow for more customisation:
 
 - Background image - Define the full URL or path to an image to serve as background
 - Repeat image
@@ -76,7 +85,9 @@ Then there are some background options. You can ignore these if you are happy wi
 
 = How can I create a custom skin? =
 
-Select **Skin: Custom** and copie the following code to a text document on your computer.
+Here are your first steps into the wonderous world of CoolClock skins ;)
+
+1. Copie the following code to a simple unformatted text document (.txt) on your computer.
 
 `
 outerBorder: { lineWidth: 1, radius:95, color: "black", alpha: 1 },
@@ -88,14 +99,14 @@ secondHand: { lineWidth: 1, startAt: -20, endAt: 85, color: "red", alpha: 1 },
 secondDecoration: { lineWidth: 1, startAt: 70, radius: 4, fillColor: "red", color: "red", alpha: 1 }
 `
 
-These parameters are the ones from the swissRail skin. Now go and change some parameter values like lineWidth or start/endAt points. The numbers refer to a percentage of the radius, so startAt: 0, endAt: 50 means a line from the center to 50% of the way to the edge. Alpha means the transparency of the element where alpha: 1 means solid. For example alpha: 0.5 means 50% transparent.
+2. These parameters are the ones from the swissRail skin. Now go and change some parameter values like lineWidth or start/endAt points. The numbers refer to a percentage of the radius, so startAt: 0, endAt: 50 means a line from the center to 50% of the way to the edge. Alpha means the transparency of the element where alpha: 1 means solid. For example alpha: 0.5 means 50% transparent.
 
-No copy your modified parameters into the field **Custom skin parameters:** and save the widget. Reload your website front page (or wherever the clock is visible) to see the result of your work.
+3. Go to you the Analog Clock widget, select *Skin: Custom* and copy your modified code (all of it, not just the modified parts!) into the field **Custom skin parameters**. Then save the widget and reload your website front page (or wherever the clock is visible) to see the result of your work.
 
-See for more examples [moreskins.js](http://randomibis.com/coolclock/moreskins.js).
+See the preset skins in [moreskins.js](http://randomibis.com/coolclock/moreskins.js) for more examples. And have fun tweaking!
 
 
-= Can I share this fantastic skin I created? =
+= Can I share this fantastic custom skin I created? =
 
 If you make a nice skin and would like to share it, then send it to the script creator at simon dot baird at gmail dot com or paste the custom parameters into a new ticket (mark it as 'not a support question') on the Support tab. 
 
@@ -109,9 +120,9 @@ Please report any issues on the Support tab.
 
 == Screenshots ==
 
-1. Example analog clock in sidebar.
+1. Example analog clock in sidebar. The background logo is added with the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/).
 
-2. Widget settings.
+2. Widget settings. The background options are availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/).
 
 == Upgrade Notice ==
 
