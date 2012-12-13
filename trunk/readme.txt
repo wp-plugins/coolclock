@@ -1,7 +1,7 @@
 === CoolClock - a Javascript Analog Clock ===
 Contributors: RavanH
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravanhagen%40gmail%2ecom&item_name=CoolClock%20for%20WordPress&item_number=1%2e3%2e4%2e9&no_shipping=0&tax=0&charset=UTF%2d8&currency_code=EUR
-Tags: fancybox, lightbox, gallery, image, photo, video, flash, nextgen, overlay, youtube, vimeo, dailymotion, pdf, iframe, swf, jquery
+Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode
 Requires at least: 2.9
 Tested up to: 3.4.2
 Stable tag: 0.1
@@ -74,7 +74,7 @@ First of all, you can pick a preset skin. There are 21 skins made by other users
 - Show digital time
 - GMT Offset - use this if you want one or more clocks to show the time for other timezones. 
 
-Then there are some options availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/) which allow for more customisation:
+Then there are extra options availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/) which allow for more customisation:
 
 - Background image - Define the full URL or path to an image to serve as background
 - Repeat image
