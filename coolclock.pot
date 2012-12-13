@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CoolClock/0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-13 17:00+0100\n"
-"PO-Revision-Date: 2012-12-13 17:00+0100\n"
+"POT-Creation-Date: 2012-12-13 17:30+0100\n"
+"PO-Revision-Date: 2012-12-13 17:31+0100\n"
 "Last-Translator: RavanH <ravanhagen@gmail.com>\n"
 "Language-Team:  <ravanhagen@gmail.com>\n"
 "Language: \n"
@@ -14,6 +14,69 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: coolclock-pro.php:55
+#: coolclock.php:234
+msgid "Background"
+msgstr ""
+
+#: coolclock-pro.php:57
+msgid "Image URL:"
+msgstr ""
+
+#: coolclock-pro.php:61
+msgid "Repeat image"
+msgstr ""
+
+#: coolclock-pro.php:63
+msgid "Position:"
+msgstr ""
+
+#: coolclock-pro.php:64
+#: coolclock-pro.php:82
+msgid "left"
+msgstr ""
+
+#: coolclock-pro.php:64
+#: coolclock-pro.php:86
+msgid "top"
+msgstr ""
+
+#: coolclock-pro.php:64
+#: coolclock-pro.php:82
+msgid "right"
+msgstr ""
+
+#: coolclock-pro.php:64
+#: coolclock-pro.php:86
+msgid "bottom"
+msgstr ""
+
+#: coolclock-pro.php:64
+msgid "center"
+msgstr ""
+
+#: coolclock-pro.php:67
+msgid "Width"
+msgstr ""
+
+#: coolclock-pro.php:69
+msgid "Height"
+msgstr ""
+
+#: coolclock-pro.php:77
+msgid "Clock position relative to background:"
+msgstr ""
+
+#: coolclock-pro.php:80
+#: coolclock-pro.php:84
+msgid "pixels"
+msgstr ""
+
+#: coolclock-pro.php:81
+#: coolclock-pro.php:85
+msgid "from"
+msgstr ""
 
 #: coolclock.php:22
 msgid "Analog Clock"
@@ -149,10 +212,6 @@ msgstr ""
 
 #: coolclock.php:226
 msgid "(leave blank for local time)"
-msgstr ""
-
-#: coolclock.php:234
-msgid "Background"
 msgstr ""
 
 #: coolclock.php:236
