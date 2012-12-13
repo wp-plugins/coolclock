@@ -3,7 +3,7 @@ Contributors: RavanH
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravanhagen%40gmail%2ecom&item_name=CoolClock%20for%20WordPress&item_number=1%2e3%2e4%2e9&no_shipping=0&tax=0&charset=UTF%2d8&currency_code=EUR
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode
 Requires at least: 2.9
-Tested up to: 3.4.2
+Tested up to: 3.5
 Stable tag: 0.1
 
 Show an analog clock on your WordPress site.
