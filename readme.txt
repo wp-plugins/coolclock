@@ -31,9 +31,11 @@ Pro features are availabe in the [CoolClock - Pro extension](http://status301.ne
 
 = Translators =
 
-- **Dutch** * Author: [R.A. van Hagen](http://phareo.eu) (version 0.1)
+- **Dutch** * Author: [R.A. van Hagen](http://status301.net/nl/) (version 0.1)
+- **French** * Author: [R.A. van Hagen](http://phareo.eu) (version 0.1)
 
-Please contact me to submit your translation and get mentioned here :)
+Please [contact me](http://status301.net/contact-en/) to submit your translation and get mentioned here :)
+
 
 == Installation ==
 
