@@ -5,7 +5,7 @@ Plugin URI: http://status301.net/wordpress-plugins/coolclock/
 Description: Add an analog clock to your sidebar.
 Text Domain: coolclock
 Domain Path: languages
-Version: 0.1
+Version: 1.0
 Author: RavanH
 Author URI: http://status301.net/
 */
@@ -64,7 +64,15 @@ class CoolClock_Widget extends WP_Widget {
                         echo $before_title . $title . $after_title; ?>
 <div style="<?php if ( isset($instance['background_image']) && $instance['background_image'] != '' ) { echo 'background-image:url(\''.$instance['background_image'].'\');'; ?><?php if ( isset($instance['background_position']) ) echo 'background-position:'.$instance['background_position'].';'; ?><?php if ( isset($instance['background_repeat']) && $instance['background_repeat'] == false ) echo 'background-repeat:no-repeat;'; } ?>height:<?php echo $background_height; ?>;width:<?php echo $background_width; ?>;position:relative<?php //if ( isset($instance['background_color']) ) echo ';background-color:'.$instance['background_color']; ?>">
 <div style="position:absolute;<?php if ( isset($instance['vertical_position_from']) ) echo $instance['vertical_position_from'] . ':' . $vertical_position_dist . ';'; ?><?php if ( isset($instance['horizontal_position_from']) ) echo $instance['horizontal_position_from'] . ':' . $horizontal_position_dist . ';'; ?>height:<?php echo $clock_height; ?>;width:<?php echo $clock_width; ?>">
-<canvas class="CoolClock:<?php echo $skin; ?>:<?php echo $radius; ?>:<?php if ( $instance['noseconds'] ) echo 'noSeconds'; ?>:<?php if ( $instance['gmtoffset'] ) echo $instance['gmtoffset']; ?>:<?php if ( $instance['showdigital'] ) echo 'showDigital'; ?>"></canvas>
+<?php
+
+echo CoolClock::canvas( array(	'skin' => $skin,
+				'radius' => $radius,
+				'noseconds' => $instance['noseconds'],
+				'gmtoffset' => $instance['gmtoffset'],
+				'showdigital' => $instance['showdigital']) );
+
+ ?>
 </div>
 </div>
 
@@ -242,24 +250,59 @@ class CoolClock {
 		load_plugin_textdomain('coolclock', false, dirname(plugin_basename( __FILE__ )).'/languages');
 		add_action('widgets_init', create_function('', 'return register_widget("CoolClock_Widget");'));
 
-		//add_shortcode('myshortcode', array(__CLASS__, 'handle_shortcode'));
+		add_shortcode('coolclock', array(__CLASS__, 'handle_shortcode'));
  
-		add_action('init', array(__CLASS__, 'register_script'));
-		add_action('wp_footer', array(__CLASS__, 'print_script'));
+		add_action('init', array(__CLASS__, 'register_scripts'));
+		add_action('wp_footer', array(__CLASS__, 'print_scripts'));
 	}
  
 	static function handle_shortcode($atts) {
+		
+		if ( isset($atts['align']) )
+			$align = $atts['align'];
+
+		$atts = shortcode_atts( self::$defaults, $atts );
+
+		// set footer script flags
 		self::$add_script = true;
- 
-		// actual shortcode handling here
+		if ( in_array( $atts['skin'], self::$more_skins ) )
+			self::$add_moreskins = true;
+		if ( isset( self::$advanced_skins[$atts['skin']] ) )
+			self::$add_customskins = true;
+
+		// return the clock unless it's a feed
+		if ( !is_feed() ) {
+			return self::canvas( $atts, $align );
+		} else {
+			return '';	
+		}
+		
+	}
+	
+	static function canvas($atts, $align = false) {
+		$atts = shortcode_atts( self::$defaults, $atts );
+
+		extract( $atts );
+				
+		$output = '<canvas class="CoolClock:'.$skin.':'.$radius.':';
+		$output .= ( $noseconds == 'true' ||  $noseconds == '1' ) ? 'noSeconds:' : ':';
+		$output .= $gmtoffset.':';
+		$output .= ( $showdigital == 'true' || $showdigital == '1' ) ? 'showDigital:' : ':';
+		$output .= ( $align ) ? ' align'.$align : '';
+		$output .= '"></canvas>';
+		
+		return $output;
 	}
  
-	static function register_script() {
-		wp_register_script('coolclock', 'http://randomibis.com/coolclock/coolclock.js', array('jquery'), '2.1.4', true);
-		wp_register_script('coolclock-moreskins', 'http://randomibis.com/coolclock/moreskins.js', array('coolclock'), '2.1.4', true);
+	static function register_scripts() {
+		wp_register_script('coolclock', plugins_url('/js/coolclock.min.js', __FILE__), array('jquery'), '2.1.4', true);
+		wp_register_script('coolclock-moreskins', plugins_url('/js/moreskins.min.js', __FILE__), array('coolclock'), '2.1.4', true);
+		
+		// could use http://cdnjs.cloudflare.com/ajax/libs/flot/0.7/excanvas.min.js here...
+		wp_register_script('excanvas', plugins_url('/js/excanvas.compiled.js', __FILE__), array(), '3', true);
 	}
  
-	static function print_script() {
+	static function print_scripts() {
 		if ( ! self::$add_script )
 			return;
  
@@ -279,7 +322,9 @@ class CoolClock {
 ';
 		}
 		
-		echo '<!--[if lt IE 9]><script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.7/excanvas.min.js"></script><![endif]-->
+		echo '<!--[if lt IE 9]>'; //<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.7/excanvas.min.js"></script>
+		wp_print_scripts('excanvas');
+		echo '<![endif]-->
 ';
 	}
 }

@@ -10,10 +10,11 @@ Show an analog clock on your WordPress site.
 
 == Description ==
 
-This plugin integrates [CoolClock - The Javascript Analog Clock](http://randomibis.com/coolclock/) into your WordPress site. Currently you can add it as a Widget to your sidebar. A shortcode to insert a clock into your posts and pages and a PHP function to your custom theme is planned for the next release.
+This plugin integrates [CoolClock - The Javascript Analog Clock](http://randomibis.com/coolclock/) into your WordPress site. You can add it as a **widget** to your sidebar or insert it into your posts and pages with a **shortcode**. See [the FAQ's](http://wordpress.org/extend/plugins/coolclock/faq/) for available shortcode parameters and how to build the clock into your theme.
 
 = Features =
 
+- Can be added via a widget, shortcode or theme function
 - No flash means compatible with pads and most other mobile devices
 - 21 different skins to choose from 
 - Custom skin option to create your own skin style
@@ -63,6 +64,7 @@ Now visit your Widgets admin page and add the Analog Clock widget to your sideba
 
 There is no options page. Just go to your Appearance > Widgets admin page and find the new Analog Clock widget. Add it to your sidebar and change settings if you want to see another than the default clock.
 
+Other ways to integrate a clock into your site are ahortcodes or a theme function. See instructions below.
 
 = What options does the widget have? =
 
@@ -108,9 +110,33 @@ See the preset skins in [moreskins.js](http://randomibis.com/coolclock/moreskins
 
 = Can I share this fantastic custom skin I created? =
 
-If you make a nice skin and would like to share it, then send it to the script creator at simon dot baird at gmail dot com or paste the custom parameters into a new ticket (mark it as 'not a support question') on the Support tab. 
+If you made a nice skin and would like to share it, then send it to the script creator at simon dot baird at gmail dot com or paste the custom parameters into a [Review](http://wordpress.org/support/view/plugin-reviews/coolclock). 
 
 Thanks for sharing! :)
+
+
+= Can I insert a clock in posts or pages? =
+
+Yes, there is a shortcode available. Start with a default clock by pasting `[coolclock]` into a post.
+
+The following parameters are available:
+
+- **skin** -- must be one of these: 'swissRail' (default skin), 'chunkySwiss', 'chunkySwissOnBlack', 'fancy', 'machine', 'simonbaird_com', 'classic', 'modern', 'simple', 'securephp', 'Tes2', 'Lev', 'Sand', 'Sun', 'Tor', 'Cold', 'Babosa', 'Tumb', 'Stone', 'Disc' or 'watermelon'. If the Pro extension is activated, there is also 'minimal' available. Please note that these names are _case sensitive_.
+- **radius** -- a number to define the clock radius. Do not add 'px' or any other measure descriptor.
+- **noseconds** -- set to true (or 1) to hide the second hand
+- **gmtoffset** -- a number to define a timezone relative the Greenwhich Mean Time. Do not set this parameter to default to local time.
+- **showdigital** -- set to true (or 1) to show the time in digital format too
+- **align** -- sets floating of the clock: 'left', 'right' or 'center'
+
+Example: `[coolclock skin="chunkySwiss" radius="140" showdigital=true align="left"]`
+
+= I'm building my own theme. Is there a theme function available? =
+
+Yes, you can use a built-in WordPress function that parses a shortcode. To place the same clock as in the shortcode example above, anywhere in your theme, use this:
+
+`
+<?php echo do_shortcode('[coolclock skin="chunkySwiss" radius="140" showdigital=true align="left"]'); ?>
+`
 
 
 == Known Issues ==
@@ -126,10 +152,15 @@ Please report any issues on the Support tab.
 
 == Upgrade Notice ==
 
-= 0.1 =
-Hello world! 
+= 1.0 =
+Shortcode added 
 
 == Changelog ==
+
+= 1.0 =
+* Sidebar widget overhaul
+* Class
+* Shortcode
 
 = 0.1 =
 * First implementation of CoolClock in sidebar widget
