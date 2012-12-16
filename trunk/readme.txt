@@ -87,7 +87,8 @@ Then there are extra options availabe in the [CoolClock - Pro extension](http://
 
 Here are your first steps into the wonderous world of CoolClock skins ;)
 
-1. Copie the following code to a simple unformatted text document (.txt) on your computer.
+**Step 1.** Copie the following code to a simple unformatted text document (.txt) on your computer.
+
 `
 outerBorder: { lineWidth: 1, radius:95, color: "black", alpha: 1 },
 smallIndicator: { lineWidth: 2, startAt: 89, endAt: 93, color: "black", alpha: 1 },
@@ -98,9 +99,9 @@ secondHand: { lineWidth: 1, startAt: -20, endAt: 85, color: "red", alpha: 1 },
 secondDecoration: { lineWidth: 1, startAt: 70, radius: 4, fillColor: "red", color: "red", alpha: 1 }
 `
 
-2. These parameters are the ones from the swissRail skin. Now go and change some parameter values like lineWidth or start/endAt points. The numbers refer to a percentage of the radius, so startAt: 0, endAt: 50 means a line from the center to 50% of the way to the edge. Alpha means the transparency of the element where alpha: 1 means solid. For example alpha: 0.5 means 50% transparent.
+**Step 2.** These parameters are the ones from the swissRail skin. Now go and change some parameter values like lineWidth or start/endAt points. The numbers refer to a percentage of the radius, so startAt: 0, endAt: 50 means a line from the center to 50% of the way to the edge. Alpha means the transparency of the element where alpha: 1 means solid. For example alpha: 0.5 means 50% transparent.
 
-3. Go to you the Analog Clock widget, select *Skin: Custom* and copy your modified code (all of it, not just the modified parts!) into the field **Custom skin parameters**. Then save the widget and reload your website front page (or wherever the clock is visible) to see the result of your work.
+**Step 3.** Go to you the Analog Clock widget, select *Skin: Custom* and copy your modified code (all of it, not just the modified parts!) into the field **Custom skin parameters**. Then save the widget and reload your website front page (or wherever the clock is visible) to see the result of your work.
 
 See the preset skins in [moreskins.js](http://randomibis.com/coolclock/moreskins.js) for more examples. And have fun tweaking!
 
