@@ -88,7 +88,6 @@ Then there are extra options availabe in the [CoolClock - Pro extension](http://
 Here are your first steps into the wonderous world of CoolClock skins ;)
 
 1. Copie the following code to a simple unformatted text document (.txt) on your computer.
-
 `
 outerBorder: { lineWidth: 1, radius:95, color: "black", alpha: 1 },
 smallIndicator: { lineWidth: 2, startAt: 89, endAt: 93, color: "black", alpha: 1 },
