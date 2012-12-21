@@ -4,9 +4,9 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravan
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode
 Requires at least: 2.9
 Tested up to: 3.5
-Stable tag: 1.1
+Stable tag: 2.0
 
-Show an analog clock on your WordPress site.
+Show an analog clock on your WordPress site sidebar or in post and page content.
 
 == Description ==
 
@@ -15,7 +15,7 @@ This plugin integrates [CoolClock - The Javascript Analog Clock](http://randomib
 = Features =
 
 - Can be added via a widget, shortcode or theme function
-- No flash means compatible with pads and most other mobile devices
+- No flash, meaning compatible with pads and most other javascript enabled mobile devices
 - 21 different skins to choose from 
 - Custom skin option to create your own skin style
 
@@ -25,14 +25,14 @@ See [the FAQ's](http://wordpress.org/extend/plugins/coolclock/faq/) to learn how
 
 - Extra skins
 - Custom background image 
-- Positioning options
+- Advanced positioning options
 
-Pro features are availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/).
+Pro features come with the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/).
 
 = Translators =
 
-- **Dutch** * Author: [R.A. van Hagen](http://status301.net/nl/) (version 0.1)
-- **French** * Author: [R.A. van Hagen](http://phareo.eu) (version 0.1)
+- **Dutch** * Author: [R.A. van Hagen](http://status301.net/nl/) (version 2.0)
+- **French** * Author: [R.A. van Hagen](http://phareo.eu) (version 2.0)
 
 Please [contact me](http://status301.net/contact-en/) to submit your translation and get mentioned here :)
 
@@ -72,11 +72,12 @@ Other ways to integrate a clock into your site are ahortcodes or a theme functio
 
 First of all, you can pick a preset skin. There are 21 skins made by other users and one Minimal skin that only shows the clock arms, that can be useful for placing over a custom background image. Then there are:
 
-- Custom skin parameters - see question below
-- Radius - changes the clock size
-- Hide second hand
-- Show digital time
-- GMT Offset - use this if you want one or more clocks to show the time for other timezones. 
+- Custom skin parameters - see question below;
+- Radius - changes the clock size;
+- Hide second hand;
+- Show digital time;
+- GMT Offset - use this if you want one or more clocks to show the time for other timezones;
+- Scale - Linear is our standard clock scale, the other two show a logarithmic time scale.
 
 Then there are extra options availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/) which allow for more customisation:
 
@@ -91,7 +92,7 @@ Then there are extra options availabe in the [CoolClock - Pro extension](http://
 
 Here are your first steps into the wonderous world of CoolClock skins ;)
 
-**Step 1.** Copie the following code to a simple unformatted text document (.txt) on your computer.
+**Step 1.** Copy the following code to a simple unformatted text document (.txt) on your computer.
 
 `
 outerBorder: { lineWidth: 1, radius:95, color: "black", alpha: 1 },
@@ -128,9 +129,10 @@ The following parameters are available:
 - **noseconds** -- set to true (or 1) to hide the second hand
 - **gmtoffset** -- a number to define a timezone relative the Greenwhich Mean Time. Do not set this parameter to default to local time.
 - **showdigital** -- set to true (or 1) to show the time in digital format too
+- **scale** -- must be one of these: 'linear' (default scale), 'logClock' or  'logClockRev'. Linear is our normal clock scale, the other two show a logarithmic time scale.
 - **align** -- sets floating of the clock: 'left', 'right' or 'center'
 
-Example: `[coolclock skin="chunkySwiss" radius="140" showdigital=true align="left"]`
+Example: `[coolclock skin="chunkySwissOnBlack" radius="140" showdigital=true align="left"]`
 
 = I'm building my own theme. Is there a theme function available? =
 
@@ -152,12 +154,17 @@ Please report any issues on the Support tab.
 
 2. Widget settings. The background options are availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/).
 
+
 == Upgrade Notice ==
 
-= 1.1 =
-Minified JS
+= 2.0 =
+Clock scales linear, logarithmic and logarithmic reveresed.
+
 
 == Changelog ==
+
+= 2.0 =
+* NEW: logClock option
 
 = 1.1 =
 * Minified javascript
@@ -165,7 +172,7 @@ Minified JS
 = 1.0 =
 * Sidebar widget overhaul
 * Class
-* Shortcode
+* NEW: Shortcode
 
 = 0.1 =
 * First implementation of CoolClock in sidebar widget
