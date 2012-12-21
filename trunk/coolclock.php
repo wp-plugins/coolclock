@@ -25,7 +25,7 @@ class CoolClock_Widget extends WP_Widget {
         		   	  'description' => __('Add an analog clock to your sidebar.', 'coolclock') 
         		   	  ), 
         		   array( 
-        		   	  'width' => 300, 
+        		   	  'width' => 340, 
         		   	  /*'height' => 350, */
         		   	  'id_base' => 'coolclock-widget' 
         		   	  ) 
