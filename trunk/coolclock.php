@@ -5,7 +5,7 @@ Plugin URI: http://status301.net/wordpress-plugins/coolclock/
 Description: Add an analog clock to your sidebar.
 Text Domain: coolclock
 Domain Path: languages
-Version: 1.1
+Version: 2.0
 Author: RavanH
 Author URI: http://status301.net/
 */
@@ -241,8 +241,8 @@ class CoolClock {
 		<p><label for="<?php echo $obj->get_field_id('custom_skin'); ?>"><?php _e('Custom skin parameters:', 'coolclock'); ?> </label>
 		  <textarea class="widefat" id="<?php echo $obj->get_field_id('custom_skin'); ?>" name="<?php echo $obj->get_field_name('custom_skin'); ?>"><?php echo $custom_skin; ?></textarea></p>
 
-		<p><label for="<?php echo $obj->get_field_id('radius'); ?>"><?php _e('Radius:', 'coolclock'); ?></label>
-		  <input class="small-text" id="<?php echo $obj->get_field_id('radius'); ?>" name="<?php echo $obj->get_field_name('radius'); ?>" type="number" min="10" value="<?php echo $instance['radius']; ?>" /></p>
+		<p><label for="<?php echo $obj->get_field_id('radius'); ?>"><?php _e('Radius:', 'coolclock'); ?>
+		  <input class="small-text" id="<?php echo $obj->get_field_id('radius'); ?>" name="<?php echo $obj->get_field_name('radius'); ?>" type="number" min="10" value="<?php echo $instance['radius']; ?>" /> <?php _e('pixels', 'coolclock'); ?></label></p>
 
 		<p><input id="<?php echo $obj->get_field_id('noseconds'); ?>" name="<?php echo $obj->get_field_name('noseconds'); ?>" type="checkbox" value=<?php echo ( $instance['noseconds'] ) ? '"true"  checked="checked"' : '"false"'; ?> />
 		<label for="<?php echo $obj->get_field_id('noseconds'); ?>"><?php _e('Hide second hand', 'coolclock'); ?></label></p>
