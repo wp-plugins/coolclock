@@ -70,7 +70,9 @@ echo CoolClock::canvas( array(	'skin' => $skin,
 				'radius' => $radius,
 				'noseconds' => $instance['noseconds'],
 				'gmtoffset' => $instance['gmtoffset'],
-				'showdigital' => $instance['showdigital']) );
+				'showdigital' => $instance['showdigital'],
+				'scale' => $instance['scale']
+				) );
 
  ?>
 </div>
@@ -112,6 +114,7 @@ class CoolClock {
 			'noseconds' => false,			// Hide seconds
 			'gmtoffset' => '',			// GMT offset
 			'showdigital' => false,			// Show digital time
+			'scale' => 'linear'			// Define type of clock linear/logarithmic/log reversed
 		);
 
 	static $advanced;
@@ -148,7 +151,15 @@ class CoolClock {
 	static $advanced_skins = array ();
     	
     	static $advanced_skins_config = array ();
-    	
+
+	static $clock_types = array (
+	    		'linear',
+	    		'logClock',
+	    		'logClockRev'
+	    	);
+
+	// FUNCTIONS //
+	    	
     	static function update($instance, $new_instance) {
     		
 		$instance['title'] = strip_tags($new_instance['title']);
@@ -158,6 +169,7 @@ class CoolClock {
 		$instance['noseconds'] = (bool) $new_instance['noseconds'];
 		$instance['gmtoffset'] = ( !$new_instance['gmtoffset'] ) ? '' : (float) $new_instance['gmtoffset'];
 		$instance['showdigital'] = (bool) $new_instance['showdigital'];
+		$instance['scale'] = strip_tags($new_instance['scale']);
 
     		if ( class_exists('CoolClockAdvanced') )
     			$instance = CoolClockAdvanced::update($instance, $new_instance);
@@ -167,81 +179,92 @@ class CoolClock {
         
     	static function form($obj, $instance, $defaults) {
     		
-	$defaults = array ( 
-			'title' => '',
-			'custom_skin' => '',
-		);
+		$defaults = array ( 
+				'title' => '',
+				'custom_skin' => '',
+			);
 		
-	$defaults = array_merge($defaults, CoolClock::$defaults, CoolClock::$advanced_defaults);
+		$defaults = array_merge($defaults, self::$defaults, self::$advanced_defaults);
 	
-	$instance = wp_parse_args( (array) $instance, $defaults );
- 
-        $title = esc_attr( $instance['title'] );
-        $custom_skin = esc_attr( $instance['custom_skin'] );
+		$instance = wp_parse_args( (array) $instance, $defaults );
+	 
+		$title = esc_attr( $instance['title'] );
+		$custom_skin = esc_attr( $instance['custom_skin'] );
 	
-	// Translatable skin names go here
-	$skin_names = array (
-	    		'swissRail' => __('Swiss Rail','coolclock'),
-	    		'chunkySwiss' => __('Chunky Swiss','coolclock'),
-	    		'chunkySwissOnBlack' => __('Chunky Swiss Black','coolclock'),
-	    		'fancy' => __('Fancy','coolclock'),
-	    		'machine' => __('Machine','coolclock'),
-	    		'simonbaird_com' => __('SimonBaird.com','coolclock'),
-	    		'classic' => __('Classic by Bonstio','coolclock'),
-	    		'modern' => __('Modern by Bonstio','coolclock'),
-	    		'simple' => __('Simple by Bonstio','coolclock'),
-	    		'securephp' => __('SecurePHP','coolclock'),
-	    		'Tes2' => __('Tes2','coolclock'),
-	    		'Lev' => __('Lev','coolclock'),
-	    		'Sand' => __('Sand','coolclock'),
-	    		'Sun' => __('Sun','coolclock'),
-	    		'Tor' => __('Tor','coolclock'),
-	    		'Cold' => __('Cold','coolclock'),
-	    		'Babosa' => __('Babosa','coolclock'),
-	    		'Tumb' => __('Tumb','coolclock'),
-	    		'Stone' => __('Stone','coolclock'),
-	    		'Disc' => __('Disc','coolclock'),
-	    		'watermelon' => __('Watermelon by Yoo Nhe','coolclock'),
-	    		'minimal' => __('Minimal','coolclock')
-	    	);
-	    
-    	$skins = array_merge(CoolClock::$default_skins,CoolClock::$more_skins,CoolClock::$advanced_skins);
+		// Translatable skin names go here
+		$skin_names = array (
+		    		'swissRail' => __('Swiss Rail','coolclock'),
+		    		'chunkySwiss' => __('Chunky Swiss','coolclock'),
+		    		'chunkySwissOnBlack' => __('Chunky Swiss Black','coolclock'),
+		    		'fancy' => __('Fancy','coolclock'),
+		    		'machine' => __('Machine','coolclock'),
+		    		'simonbaird_com' => __('SimonBaird.com','coolclock'),
+		    		'classic' => __('Classic by Bonstio','coolclock'),
+		    		'modern' => __('Modern by Bonstio','coolclock'),
+		    		'simple' => __('Simple by Bonstio','coolclock'),
+		    		'securephp' => __('SecurePHP','coolclock'),
+		    		'Tes2' => __('Tes2','coolclock'),
+		    		'Lev' => __('Lev','coolclock'),
+		    		'Sand' => __('Sand','coolclock'),
+		    		'Sun' => __('Sun','coolclock'),
+		    		'Tor' => __('Tor','coolclock'),
+		    		'Cold' => __('Cold','coolclock'),
+		    		'Babosa' => __('Babosa','coolclock'),
+		    		'Tumb' => __('Tumb','coolclock'),
+		    		'Stone' => __('Stone','coolclock'),
+		    		'Disc' => __('Disc','coolclock'),
+		    		'watermelon' => __('Watermelon by Yoo Nhe','coolclock'),
+		    		'minimal' => __('Minimal','coolclock')
+		    	);
+		    
+	    	$skins = array_merge(self::$default_skins,self::$more_skins,self::$advanced_skins);
 
-        ?>
-        <p>
-          <label for="<?php echo $obj->get_field_id('title'); ?>"><?php _e('Title:'); ?> </label> 
-          <input class="widefat" id="<?php echo $obj->get_field_id('title'); ?>" name="<?php echo $obj->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
-        </p>
-
-        <p><strong><?php _e('Clock', 'coolclock'); ?></strong></p>
-
-	<p><label for="<?php echo $obj->get_field_id('skin'); ?>"><?php _e('Skin:', 'coolclock'); ?> </label> 
-		<select class="select" id="<?php echo $obj->get_field_id('skin'); ?>" name="<?php echo $obj->get_field_name('skin'); ?>"><?php foreach ($skins as $value) { echo "<option value=\"$value\""; if ($value == $instance['skin']) echo ' selected="selected"'; echo '>'; if ( isset($skin_names[$value]) ) echo $skin_names[$value]; else echo $value; echo'</option>'; } unset($value); ?><option value="custom_<?php echo $obj->number ?>"<?php if ( 'custom_'.$obj->number == $instance['skin']) echo ' selected="selected"'; ?>><?php _e('Custom (define below)', 'coolclock') ?></option></select></p>
+		// Translatable type names go here
+		$type_names = array (
+		    		'linear' => __('Linear','coolclock'),
+		    		'logClock' => __('Logarithmic','coolclock'),
+		    		'logClockRev' => __('Logarithmic reversed','coolclock')
+		    	);
+		    
 		
-        <p><label for="<?php echo $obj->get_field_id('custom_skin'); ?>"><?php _e('Custom skin parameters:', 'coolclock'); ?> </label>
-          <textarea class="widefat" id="<?php echo $obj->get_field_id('custom_skin'); ?>" name="<?php echo $obj->get_field_name('custom_skin'); ?>"><?php echo $custom_skin; ?></textarea></p>
+		?>
+		<p>
+		  <label for="<?php echo $obj->get_field_id('title'); ?>"><?php _e('Title:'); ?> </label> 
+		  <input class="widefat" id="<?php echo $obj->get_field_id('title'); ?>" name="<?php echo $obj->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
+		</p>
 
-	<p><label for="<?php echo $obj->get_field_id('radius'); ?>"><?php _e('Radius:', 'coolclock'); ?></label>
-          <input class="small-text" id="<?php echo $obj->get_field_id('radius'); ?>" name="<?php echo $obj->get_field_name('radius'); ?>" type="number" min="10" value="<?php echo $instance['radius']; ?>" /></p>
+		<p><strong><?php _e('Clock', 'coolclock'); ?></strong></p>
 
-	<p><input id="<?php echo $obj->get_field_id('noseconds'); ?>" name="<?php echo $obj->get_field_name('noseconds'); ?>" type="checkbox" value=<?php echo ( $instance['noseconds'] ) ? '"true"  checked="checked"' : '"false"'; ?> />
-	<label for="<?php echo $obj->get_field_id('noseconds'); ?>"><?php _e('Hide second hand', 'coolclock'); ?></label></p>
+		<p><label for="<?php echo $obj->get_field_id('skin'); ?>"><?php _e('Skin:', 'coolclock'); ?> </label> 
+			<select class="select" id="<?php echo $obj->get_field_id('skin'); ?>" name="<?php echo $obj->get_field_name('skin'); ?>"><?php foreach ($skins as $value) { echo "<option value=\"$value\""; if ($value == $instance['skin']) echo ' selected="selected"'; echo '>'; if ( isset($skin_names[$value]) ) echo $skin_names[$value]; else echo $value; echo'</option>'; } unset($value); ?><option value="custom_<?php echo $obj->number ?>"<?php if ( 'custom_'.$obj->number == $instance['skin']) echo ' selected="selected"'; ?>><?php _e('Custom (define below)', 'coolclock') ?></option></select></p>
+		
+		<p><label for="<?php echo $obj->get_field_id('custom_skin'); ?>"><?php _e('Custom skin parameters:', 'coolclock'); ?> </label>
+		  <textarea class="widefat" id="<?php echo $obj->get_field_id('custom_skin'); ?>" name="<?php echo $obj->get_field_name('custom_skin'); ?>"><?php echo $custom_skin; ?></textarea></p>
 
- 	<p><input id="<?php echo $obj->get_field_id('showdigital'); ?>" name="<?php echo $obj->get_field_name('showdigital'); ?>" type="checkbox" value=<?php echo ( $instance['showdigital'] ) ? '"true"  checked="checked"' : '"false"'; ?> />
-	<label for="<?php echo $obj->get_field_id('showdigital'); ?>"><?php _e('Show digital time', 'coolclock'); ?></label></p>
+		<p><label for="<?php echo $obj->get_field_id('radius'); ?>"><?php _e('Radius:', 'coolclock'); ?></label>
+		  <input class="small-text" id="<?php echo $obj->get_field_id('radius'); ?>" name="<?php echo $obj->get_field_name('radius'); ?>" type="number" min="10" value="<?php echo $instance['radius']; ?>" /></p>
 
-	<p><label for="<?php echo $obj->get_field_id('gmtoffset'); ?>"><?php _e('GMT offset:', 'coolclock'); ?></label>
-          <input class="small-text" id="<?php echo $obj->get_field_id('gmtoffset'); ?>" name="<?php echo $obj->get_field_name('gmtoffset'); ?>" type="number" step="0.5" value="<?php echo $instance['gmtoffset']; ?>" /> <?php _e('(leave blank for local time)', 'coolclock'); ?></p>
+		<p><input id="<?php echo $obj->get_field_id('noseconds'); ?>" name="<?php echo $obj->get_field_name('noseconds'); ?>" type="checkbox" value=<?php echo ( $instance['noseconds'] ) ? '"true"  checked="checked"' : '"false"'; ?> />
+		<label for="<?php echo $obj->get_field_id('noseconds'); ?>"><?php _e('Hide second hand', 'coolclock'); ?></label></p>
 
-	<?php
+	 	<p><input id="<?php echo $obj->get_field_id('showdigital'); ?>" name="<?php echo $obj->get_field_name('showdigital'); ?>" type="checkbox" value=<?php echo ( $instance['showdigital'] ) ? '"true"  checked="checked"' : '"false"'; ?> />
+		<label for="<?php echo $obj->get_field_id('showdigital'); ?>"><?php _e('Show digital time', 'coolclock'); ?></label></p>
+
+		<p><label for="<?php echo $obj->get_field_id('gmtoffset'); ?>"><?php _e('GMT offset:', 'coolclock'); ?></label>
+		  <input class="small-text" id="<?php echo $obj->get_field_id('gmtoffset'); ?>" name="<?php echo $obj->get_field_name('gmtoffset'); ?>" type="number" step="0.5" value="<?php echo $instance['gmtoffset']; ?>" /> <?php _e('(leave blank for local time)', 'coolclock'); ?></p>
+
+		<p><label for="<?php echo $obj->get_field_id('scale'); ?>"><?php _e('Scale:', 'coolclock'); ?> </label> 
+			<select class="select" id="<?php echo $obj->get_field_id('scale'); ?>" name="<?php echo $obj->get_field_name('scale'); ?>"><?php foreach (self::$clock_types as $value) { echo "<option value=\"$value\""; if ($value == $instance['scale']) echo ' selected="selected"'; echo '>'; if ( isset($type_names[$value]) ) echo $type_names[$value]; else echo $value; echo'</option>'; } unset($value); ?></select></p>
+		
+		<?php
 
     		if ( class_exists('CoolClockAdvanced') ) {
     			CoolClockAdvanced::form($obj, $instance, $defaults);
     		} else {
-	?>
-       <p><strong><?php _e('Background'); ?></strong></p>
-        
-       <p><a href="http://status301.net/wordpress-plugins/coolclock-pro/"><?php _e('Available in the Pro extension &raquo;', 'coolclock'); ?></a></p>
+?>
+		       <p><strong><?php _e('Background'); ?></strong></p>
+		
+		       <p><a href="http://status301.net/wordpress-plugins/coolclock-pro/"><?php _e('Available in the Pro extension &raquo;', 'coolclock'); ?></a></p>
 <?php 
 		}
 	}
@@ -285,9 +308,24 @@ class CoolClock {
 		extract( $atts );
 				
 		$output = '<canvas class="CoolClock:'.$skin.':'.$radius.':';
+		// parameters
 		$output .= ( $noseconds == 'true' ||  $noseconds == '1' ) ? 'noSeconds:' : ':';
 		$output .= $gmtoffset.':';
-		$output .= ( $showdigital == 'true' || $showdigital == '1' ) ? 'showDigital:' : ':';
+		$output .= ( $showdigital == 'true' || $showdigital == '1' ) ? 'showDigital' : '';
+		
+		// set type
+		switch ($scale) {
+			case 'linear':
+			default:
+				break;
+			case 'logClock':
+				$output .= ':logClock';
+				break;
+			case 'logClockRev':
+				$output .= ':logClockRev';
+		}
+		
+		// align class
 		$output .= ( $align ) ? ' align'.$align : '';
 		$output .= '"></canvas>';
 		
