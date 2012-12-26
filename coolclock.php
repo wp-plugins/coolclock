@@ -5,110 +5,27 @@ Plugin URI: http://status301.net/wordpress-plugins/coolclock/
 Description: Add an analog clock to your sidebar.
 Text Domain: coolclock
 Domain Path: languages
-Version: 2.0
+Version: 2.9
 Author: RavanH
 Author URI: http://status301.net/
 */
 
 /**
- * CoolClock Widget Class
- */
-class CoolClock_Widget extends WP_Widget {
-
-    /** constructor -- name this the same as the class above */
-    function CoolClock_Widget() {
-        parent::WP_Widget( 
-        		   'coolclock-widget', 
-        		   __('Analog Clock', 'coolclock'), 
-        		   array( 
-        		   	  'classname' => 'coolclock', 
-        		   	  'description' => __('Add an analog clock to your sidebar.', 'coolclock') 
-        		   	  ), 
-        		   array( 
-        		   	  'width' => 340, 
-        		   	  /*'height' => 350, */
-        		   	  'id_base' => 'coolclock-widget' 
-        		   	  ) 
-        		   );  	
-    }
- 
-    /** @see WP_Widget::widget -- do not rename this */
-    function widget($args, $instance) {	
-        extract( $args );
-        $title = apply_filters('widget_title', $instance['title']);
-        $skin = ( isset($instance['skin']) ) ? $instance['skin'] : 'swissRail';
-        $radius = ( isset($instance['radius']) ) ? $instance['radius'] : 85 ; 
-        $clock_height = ( $radius ) ? 2*$radius.'px' : '170px'; 
-        $clock_width = ( $radius ) ? 2*$radius.'px' : '170px'; 
-
-        $background_height = ( isset($instance['background_height']) && $instance['background_height'] != '' ) ? $instance['background_height'].'px' : $clock_height; 
-        $background_width = ( isset($instance['background_width']) && $instance['background_width'] != '' ) ? $instance['background_width'].'px' : '100%';
-        //$background_color = ( isset($instance['background_color']) ) ? $instance['background_color'] : 'transparent'; 
-        $vertical_position_dist =  ( isset($instance['vertical_position_dist']) ) ? $instance['vertical_position_dist'].'px' : '0'; 
-        $horizontal_position_dist =  ( isset($instance['horizontal_position_dist']) ) ? $instance['horizontal_position_dist'].'px' : '0'; 
-        
-        // add custom skin parameters to the plugin skins array
-        if ( 'custom_'.$this->number == $skin )
-        	CoolClock::$advanced_skins_config[$skin] = $instance['custom_skin'];
-
-        // set footer script flags
-        CoolClock::$add_script = true;
-        if ( in_array( $skin, CoolClock::$more_skins ) )
-        	CoolClock::$add_moreskins = true;
-        if ( isset( CoolClock::$advanced_skins_config[$skin] ) )
-        	CoolClock::$add_customskins = true;
-        	
-        ?>
-              <?php echo $before_widget; ?>
-                  <?php if ( $title )
-                        echo $before_title . $title . $after_title; ?>
-<div style="<?php if ( isset($instance['background_image']) && $instance['background_image'] != '' ) { echo 'background-image:url(\''.$instance['background_image'].'\');'; ?><?php if ( isset($instance['background_position']) ) echo 'background-position:'.$instance['background_position'].';'; ?><?php if ( isset($instance['background_repeat']) && $instance['background_repeat'] == false ) echo 'background-repeat:no-repeat;'; } ?>height:<?php echo $background_height; ?>;width:<?php echo $background_width; ?>;position:relative<?php //if ( isset($instance['background_color']) ) echo ';background-color:'.$instance['background_color']; ?>">
-<div style="position:absolute;<?php if ( isset($instance['vertical_position_from']) ) echo $instance['vertical_position_from'] . ':' . $vertical_position_dist . ';'; ?><?php if ( isset($instance['horizontal_position_from']) ) echo $instance['horizontal_position_from'] . ':' . $horizontal_position_dist . ';'; ?>height:<?php echo $clock_height; ?>;width:<?php echo $clock_width; ?>">
-<?php
-
-echo CoolClock::canvas( array(	'skin' => $skin,
-				'radius' => $radius,
-				'noseconds' => $instance['noseconds'],
-				'gmtoffset' => $instance['gmtoffset'],
-				'showdigital' => $instance['showdigital'],
-				'scale' => $instance['scale']
-				) );
-
- ?>
-</div>
-</div>
-
-              <?php echo $after_widget; ?>
-        <?php
-    }
- 
-    /** @see WP_Widget::update -- do not rename this */
-    function update($new_instance, $old_instance) {		
-
-	$instance = $old_instance;
-
-        return CoolClock::update($instance, $new_instance);
-    }
- 
-    /** @see WP_Widget::form -- do not rename this */
-    function form($instance) {
-
-	CoolClock::form($this, $instance, $defaults);
-    }
-
-} // end class example_widget
-
-/**
  * CoolClock Class
  */
 class CoolClock {
+
+	static $plugin_version = '2.9';
+
+	static $script_version = '3.0.0-pre';
+
 	static $add_script;
 
 	static $add_moreskins;
 
 	static $add_customskins;
-	
-	static $defaults = array ( 
+
+	static $defaults = array (
 			'skin' => 'swissRail',
 			'radius' => 100,
 			'noseconds' => false,			// Hide seconds
@@ -118,10 +35,10 @@ class CoolClock {
 		);
 
 	static $advanced;
-		
+
 	static $advanced_defaults = array ();
 
-    	static $default_skins = array (
+	static $default_skins = array (
 	    		'swissRail',
 	    		'chunkySwiss',
 	    		'chunkySwissOnBlack'
@@ -149,8 +66,8 @@ class CoolClock {
 	    	);
 
 	static $advanced_skins = array ();
-    	
-    	static $advanced_skins_config = array ();
+
+	static $advanced_skins_config = array ();
 
 	static $clock_types = array (
 	    		'linear',
@@ -159,36 +76,83 @@ class CoolClock {
 	    	);
 
 	// FUNCTIONS //
-	    	
-    	static function update($instance, $new_instance) {
-    		
-		$instance['title'] = strip_tags($new_instance['title']);
-		$instance['skin'] = strip_tags($new_instance['skin']);
-		$instance['custom_skin'] = strip_tags($new_instance['custom_skin']);
+
+	function widget( $args, $instance ) {
+
+		$skin = ( isset( $instance['skin'] ) ) 
+			? $instance['skin'] : 'swissRail';
+
+		if ( isset($instance['align']) )
+			$align = $instance['align'];
+		else
+			$align = false;
+
+		if ( isset($instance['subtext']) )
+			$subtext =  '<div style="width:100%;text-align:center;padding-bottom:10px">' . apply_filters('widget_text', $instance['subtext'], $instance) . '</div>';
+		else
+			$subtext = '';
+
+		// add custom skin parameters to the plugin skins array
+		if ( 'custom_'.$this->number == $skin )
+			self::$advanced_skins_config[$skin] = $instance['custom_skin'];
+
+		// set footer script flags
+		self::$add_script = true;
+
+		if ( in_array( $skin, self::$more_skins ) )
+			self::$add_moreskins = true;
+		if ( isset( self::$advanced_skins_config[$skin] ) )
+			self::$add_customskins = true;
+
+		$output = self::canvas( array(
+					'skin' => $skin,
+					'radius' => $instance['radius'],
+					'noseconds' => $instance['noseconds'],
+					'gmtoffset' => $instance['gmtoffset'],
+					'showdigital' => $instance['showdigital'],
+					'scale' => $instance['scale']
+					), $align, $subtext );
+		
+		return apply_filters( 'coolclock_widget_advanced', $output, $args, $instance );
+
+	}
+
+	static function update( $new_instance, $instance ) {
+
+		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['skin'] = strip_tags( $new_instance['skin'] );
+		$instance['custom_skin'] = strip_tags( $new_instance['custom_skin'] );
 		$instance['radius'] = ( (int) $new_instance['radius'] < 5 ) ? 5 : (int) $new_instance['radius'];
 		$instance['noseconds'] = (bool) $new_instance['noseconds'];
-		$instance['gmtoffset'] = ( !$new_instance['gmtoffset'] ) ? '' : (float) $new_instance['gmtoffset'];
+		$instance['gmtoffset'] = ( $new_instance['gmtoffset'] == '' ) ? '' : (float) $new_instance['gmtoffset'];
 		$instance['showdigital'] = (bool) $new_instance['showdigital'];
-		$instance['scale'] = strip_tags($new_instance['scale']);
+		$instance['scale'] = strip_tags( $new_instance['scale'] );
+		$instance['align'] = strip_tags( $new_instance['align'] );
 
-    		if ( class_exists('CoolClockAdvanced') )
-    			$instance = CoolClockAdvanced::update($instance, $new_instance);
-    	
-        	return $instance;
-        }
-        
-    	static function form($obj, $instance, $defaults) {
-    		
+		if ( current_user_can('unfiltered_html') )
+			$instance['subtext'] =  $new_instance['subtext'];
+		else 
+			// wp_filter_post_kses() expects slashed
+			$instance['subtext'] = stripslashes( wp_filter_post_kses( addslashes($new_instance['subtext']) ) ); 
+		
+
+    		return apply_filters( 'coolclock_widget_update_advanced', $instance, $new_instance );
+
+	}
+
+	static function form( $obj, $instance, $defaults ) {
+
 		$defaults = array ( 
 				'title' => '',
 				'custom_skin' => '',
 			);
 		
-		$defaults = array_merge($defaults, self::$defaults, self::$advanced_defaults);
+		$defaults = array_merge( $defaults, self::$defaults, self::$advanced_defaults );
 	
 		$instance = wp_parse_args( (array) $instance, $defaults );
 	 
 		$title = esc_attr( $instance['title'] );
+		$subtext = esc_attr( $instance['subtext'] );
 		$custom_skin = esc_attr( $instance['custom_skin'] );
 	
 		// Translatable skin names go here
@@ -217,7 +181,7 @@ class CoolClock {
 		    		'minimal' => __('Minimal','coolclock')
 		    	);
 		    
-	    	$skins = array_merge(self::$default_skins,self::$more_skins,self::$advanced_skins);
+	    	$skins = array_merge( self::$default_skins, self::$more_skins, self::$advanced_skins );
 
 		// Translatable type names go here
 		$type_names = array (
@@ -225,64 +189,126 @@ class CoolClock {
 		    		'logClock' => __('Logarithmic','coolclock'),
 		    		'logClockRev' => __('Logarithmic reversed','coolclock')
 		    	);
-		    
 		
-		?>
-		<p>
-		  <label for="<?php echo $obj->get_field_id('title'); ?>"><?php _e('Title:'); ?> </label> 
-		  <input class="widefat" id="<?php echo $obj->get_field_id('title'); ?>" name="<?php echo $obj->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
-		</p>
-
-		<p><strong><?php _e('Clock', 'coolclock'); ?></strong></p>
-
-		<p><label for="<?php echo $obj->get_field_id('skin'); ?>"><?php _e('Skin:', 'coolclock'); ?> </label> 
-			<select class="select" id="<?php echo $obj->get_field_id('skin'); ?>" name="<?php echo $obj->get_field_name('skin'); ?>"><?php foreach ($skins as $value) { echo "<option value=\"$value\""; if ($value == $instance['skin']) echo ' selected="selected"'; echo '>'; if ( isset($skin_names[$value]) ) echo $skin_names[$value]; else echo $value; echo'</option>'; } unset($value); ?><option value="custom_<?php echo $obj->number ?>"<?php if ( 'custom_'.$obj->number == $instance['skin']) echo ' selected="selected"'; ?>><?php _e('Custom (define below)', 'coolclock') ?></option></select></p>
+		// Title
+		$output = '<p><label for="' . $obj->get_field_id('title') . '">' . __('Title:') . '</label> ';
+		$output .= '<input class="widefat" id="' . $obj->get_field_id('title') . '" name="' . $obj->get_field_name('title') . '" type="text" value="' . $title . '" /></p>';
 		
-		<p><label for="<?php echo $obj->get_field_id('custom_skin'); ?>"><?php _e('Custom skin parameters:', 'coolclock'); ?> </label>
-		  <textarea class="widefat" id="<?php echo $obj->get_field_id('custom_skin'); ?>" name="<?php echo $obj->get_field_name('custom_skin'); ?>"><?php echo $custom_skin; ?></textarea></p>
-
-		<p><label for="<?php echo $obj->get_field_id('radius'); ?>"><?php _e('Radius:', 'coolclock'); ?>
-		  <input class="small-text" id="<?php echo $obj->get_field_id('radius'); ?>" name="<?php echo $obj->get_field_name('radius'); ?>" type="number" min="10" value="<?php echo $instance['radius']; ?>" /> <?php _e('pixels', 'coolclock'); ?></label></p>
-
-		<p><input id="<?php echo $obj->get_field_id('noseconds'); ?>" name="<?php echo $obj->get_field_name('noseconds'); ?>" type="checkbox" value=<?php echo ( $instance['noseconds'] ) ? '"true"  checked="checked"' : '"false"'; ?> />
-		<label for="<?php echo $obj->get_field_id('noseconds'); ?>"><?php _e('Hide second hand', 'coolclock'); ?></label></p>
-
-	 	<p><input id="<?php echo $obj->get_field_id('showdigital'); ?>" name="<?php echo $obj->get_field_name('showdigital'); ?>" type="checkbox" value=<?php echo ( $instance['showdigital'] ) ? '"true"  checked="checked"' : '"false"'; ?> />
-		<label for="<?php echo $obj->get_field_id('showdigital'); ?>"><?php _e('Show digital time', 'coolclock'); ?></label></p>
-
-		<p><label for="<?php echo $obj->get_field_id('gmtoffset'); ?>"><?php _e('GMT offset:', 'coolclock'); ?></label>
-		  <input class="small-text" id="<?php echo $obj->get_field_id('gmtoffset'); ?>" name="<?php echo $obj->get_field_name('gmtoffset'); ?>" type="number" step="0.5" value="<?php echo $instance['gmtoffset']; ?>" /> <?php _e('(leave blank for local time)', 'coolclock'); ?></p>
-
-		<p><label for="<?php echo $obj->get_field_id('scale'); ?>"><?php _e('Scale:', 'coolclock'); ?> </label> 
-			<select class="select" id="<?php echo $obj->get_field_id('scale'); ?>" name="<?php echo $obj->get_field_name('scale'); ?>"><?php foreach (self::$clock_types as $value) { echo "<option value=\"$value\""; if ($value == $instance['scale']) echo ' selected="selected"'; echo '>'; if ( isset($type_names[$value]) ) echo $type_names[$value]; else echo $value; echo'</option>'; } unset($value); ?></select></p>
+		// Clock settings
+		$output .= '<p><strong>' . __('Clock', 'coolclock') . '</strong></p>';
+		$output .= '<p><label for="' . $obj->get_field_id('skin') . '">' . __('Skin:', 'coolclock') . '</label> ';
+		$output .= '<select class="select" id="' . $obj->get_field_id('skin') . '" name="' . $obj->get_field_name('skin') . '">';
+		foreach ($skins as $value) {
+			$output .= '<option value="' . $value . '"';
+			$output .= ( $value == $instance['skin'] ) ? ' selected="selected">' : '>';
+			$output .= ( isset($skin_names[$value]) ) ? $skin_names[$value] : $value;
+			$output .= '</option>';
+		} unset($value);
+		$output .= '<option value="custom_' . $obj->number . '"';
+		$output .= ( 'custom_'.$obj->number == $instance['skin'] ) ? ' selected="selected">' : '>';
+		$output .= __('Custom (define below)', 'coolclock') . '</option></select></p>';
 		
-		<?php
-
-    		if ( class_exists('CoolClockAdvanced') ) {
-    			CoolClockAdvanced::form($obj, $instance, $defaults);
-    		} else {
-?>
-		       <p><strong><?php _e('Background'); ?></strong></p>
+		// Custom skin field
+		$output .= '<p><label for="' . $obj->get_field_id('custom_skin') . '">' . __('Custom skin parameters:', 'coolclock') . '</label> ';
+		$output .= '<textarea class="widefat" id="' . $obj->get_field_id('custom_skin') . '" name="' . $obj->get_field_name('custom_skin') . '">' . $custom_skin . '</textarea></p>';
 		
-		       <p><a href="http://status301.net/wordpress-plugins/coolclock-pro/"><?php _e('Available in the Pro extension &raquo;', 'coolclock'); ?></a></p>
-<?php 
-		}
+		// Radius
+		$output .= '<p><label for="' . $obj->get_field_id('radius') . '">' . __('Radius:', 'coolclock') . '</label> ';
+		$output .= '<input class="small-text" id="' . $obj->get_field_id('radius') . '" name="' . $obj->get_field_name('radius') . '" type="number" min="10" value="' . $instance['radius'] . '" /></p>';
+		
+		// Second hand
+		$output .= '<p><input id="' . $obj->get_field_id('noseconds') . '" name="' . $obj->get_field_name('noseconds') . '" type="checkbox" value=';
+		$output .= ( $instance['noseconds'] ) ? '"true" checked="checked" />' : '"false" />';
+		$output .= ' <label for="' . $obj->get_field_id('noseconds') . '">' .  __('Hide second hand', 'coolclock') . '</label></p>';
+
+		// Show digital
+		$output .= '<p><input id="' . $obj->get_field_id('showdigital') . '" name="' . $obj->get_field_name('showdigital') . '" type="checkbox" value=';
+		$output .= ( $instance['showdigital'] ) ? '"true"  checked="checked" />' : '"false" />';
+		$output .= ' <label for="' . $obj->get_field_id('showdigital') . '">' . __('Show digital time', 'coolclock') . '</label></p>';
+		
+		// Show digital
+		$output .= '<p><label for="' . $obj->get_field_id('gmtoffset') . '">' . __('GMT offset:', 'coolclock') . '</label> ';
+		$output .= '<input class="small-text" id="' . $obj->get_field_id('gmtoffset') . '" name="' . $obj->get_field_name('gmtoffset') . '" type="number" step="0.5" value="' . $instance['gmtoffset'] . '" /> ' . __('(leave blank for local time)', 'coolclock') . '</p>';
+		
+		// Scale
+		$output .= '<p><label for="' . $obj->get_field_id('scale') . '">' . __('Scale:', 'coolclock') . '</label> ';
+		$output .= '<select class="select" id="' . $obj->get_field_id('scale') . '" name="' . $obj->get_field_name('scale') . '">';
+		foreach (self::$clock_types as $value) {
+			$output .= '<option value="' . $value . '"';
+			$output .= ( $value == $instance['scale'] ) ? ' selected="selected">' : '>';
+			$output .= ( isset($type_names[$value]) ) ? $type_names[$value] : $value;
+			$output .= '</option>';
+		} unset($value);
+		$output .= '</select></p>';
+
+		// Align
+		$output .= '<p><label for="' . $obj->get_field_id('align') . '">' . __('Align:', 'coolclock') . '</label> ';
+		$output .= '<select class="select" id="' . $obj->get_field_id('align') . '" name="' . $obj->get_field_name('align') . '">';
+		$output .= '<option value=""';
+		$output .= ( $instance['align'] == '' ) ? ' selected="selected">' : '>';
+		$output .= __('none', 'coolclock') . '</option>';		
+		$output .= '<option value="left"';
+		$output .= ( $instance['align'] == 'left' ) ? ' selected="selected">' : '>';
+		$output .= __('left', 'coolclock') . '</option>';
+		$output .= '<option value="right"';
+		$output .= ( $instance['align'] == 'right' ) ? ' selected="selected">' : '>';
+		$output .= __('right', 'coolclock') . '</option>';
+		$output .= '<option value="center"';
+		$output .= ( $instance['align'] == 'center' ) ? ' selected="selected">' : '>';
+		$output .= __('center', 'coolclock') . '</option>';
+		$output .= '</select></p>';
+
+		// Subtext
+		$output .= '<p><label for="' . $obj->get_field_id('subtext') . '">' . __('Subtext:') . '</label> ';
+		$output .= '<input class="widefat" id="' . $obj->get_field_id('subtext') . '" name="' . $obj->get_field_name('subtext') . '" type="text" value="' . $subtext . '" /> ' . __('(basic HTML allowed)', 'coolclock') . '</p>';
+
+		// Advanced filter
+		if ( class_exists( 'CoolClockAdvanced' ) ) // add an upgrade notice
+			$advanced_form .= '<p><strong>' . __('Background') . '</strong></p><p><strong>' . __('Pease upgrade the CoolClock - Pro extension.', 'coolclock') . '</strong> ' . __('You can download the new version using the remaining download credits and the link that you have received in the confirmation email after your first purchase.', 'coolclock') . ' <a href="http://status301.net/contact-en/">' . __('If you do not have that email anymore, please contact us.', 'coolclock') . '</a></p>' . '<p><strong>' . __('Do NOT resave widget settings before upgrading the pro extension or your advanced settings will be lost!', 'coolclock') . '</strong>';
+		else
+	    		$advanced_form = '<p><strong>' . __('Background') . '</strong></p><p><a href="http://status301.net/wordpress-plugins/coolclock-pro/">' . __('Available in the Pro extension &raquo;', 'coolclock') . '</a></p>';
+		
+		$output .= apply_filters( 'coolclock_widget_form_advanced', $advanced_form, $obj, $instance, $defaults );
+
+		return $output;
 	}
 
-	static function init() {
-		load_plugin_textdomain('coolclock', false, dirname(plugin_basename( __FILE__ )).'/languages');
-		add_action('widgets_init', create_function('', 'return register_widget("CoolClock_Widget");'));
+	static function go() {
 
-		add_shortcode('coolclock', array(__CLASS__, 'handle_shortcode'));
- 
-		add_action('init', array(__CLASS__, 'register_scripts'));
-		add_action('wp_footer', array(__CLASS__, 'print_scripts'));
+		add_action('plugins_loaded', create_function( '', "return load_plugin_textdomain( 'coolclock', false, dirname(plugin_basename( __FILE__ )).'/languages' );" ) );
+
+		add_action( 'init', array(__CLASS__, 'init' ) );
+	
+		add_action( 'widgets_init', create_function( '', 'return register_widget("CoolClock_Widget");' ) );
+
 	}
  
-	static function handle_shortcode($atts) {
-		
-		if ( isset($atts['align']) )
+	static function init() {	
+
+		add_shortcode( 'coolclock', array( __CLASS__, 'handle_shortcode' ) );
+		// allow shortcode in text widgets
+		add_filter('widget_text', 'do_shortcode', 11);
+
+		wp_register_script( 'coolclock', plugins_url('/js/coolclock.min.js', __FILE__), array('jquery'), self::$script_version, true );
+		wp_register_script( 'coolclock-moreskins', plugins_url('/js/moreskins.min.js', __FILE__), array('coolclock'), self::$script_version, true );
+		// could use http://cdnjs.cloudflare.com/ajax/libs/flot/0.7/excanvas.min.js here...
+		wp_register_script( 'excanvas', plugins_url( '/js/excanvas.compiled.js', __FILE__ ), array(), '3', true );
+
+		add_action( 'wp_footer', array( __CLASS__, 'print_scripts' ) );
+
+	}
+
+	static function handle_shortcode( $atts ) {
+
+		if ( isset( $atts['align'] ) )
 			$align = $atts['align'];
+		else
+			$align = false;
+
+		if ( isset( $atts['subtext'] ) )
+			$subtext = '<div style="width:100%;text-align:center;padding-bottom:10px">' . $atts['subtext'] . '</div>';
+		else
+			$subtext = '';
 
 		$atts = shortcode_atts( self::$defaults, $atts );
 
@@ -290,31 +316,38 @@ class CoolClock {
 		self::$add_script = true;
 		if ( in_array( $atts['skin'], self::$more_skins ) )
 			self::$add_moreskins = true;
-		if ( isset( self::$advanced_skins[$atts['skin']] ) )
+		if ( isset( self::$advanced_skins_config[$atts['skin']] ) )
 			self::$add_customskins = true;
 
 		// return the clock unless it's a feed
 		if ( !is_feed() ) {
-			return self::canvas( $atts, $align );
+			return self::canvas( $atts, $align, $subtext );
 		} else {
 			return '';	
 		}
-		
+
 	}
 	
-	static function canvas($atts, $align = false) {
+	static function canvas( $atts, $align = false, $subtext = '' ) {
+
 		$atts = shortcode_atts( self::$defaults, $atts );
 
 		extract( $atts );
-				
-		$output = '<canvas class="CoolClock:'.$skin.':'.$radius.':';
+
+		$clock_width = 2 * $radius . 'px'; 
+
+		$output = '<div';
+		
+		// align class
+		$output .= ( $align ) ? ' class="align' . $align . '"' : '';
+		$output .= ' style="width:' . $clock_width . ';height:auto"><canvas class="CoolClock:' . $skin . ':' . $radius . ':';
 		// parameters
 		$output .= ( $noseconds == 'true' ||  $noseconds == '1' ) ? 'noSeconds:' : ':';
 		$output .= $gmtoffset.':';
 		$output .= ( $showdigital == 'true' || $showdigital == '1' ) ? 'showDigital' : '';
-		
+
 		// set type
-		switch ($scale) {
+		switch ( $scale ) {
 			case 'linear':
 			default:
 				break;
@@ -324,31 +357,23 @@ class CoolClock {
 			case 'logClockRev':
 				$output .= ':logClockRev';
 		}
-		
-		// align class
-		$output .= ( $align ) ? ' align'.$align : '';
-		$output .= '"></canvas>';
-		
+
+		$output .= '"></canvas>'.$subtext.'</div>';
+
 		return $output;
-	}
- 
-	static function register_scripts() {
-		wp_register_script('coolclock', plugins_url('/js/coolclock.min.js', __FILE__), array('jquery'), '2.1.4', true);
-		wp_register_script('coolclock-moreskins', plugins_url('/js/moreskins.min.js', __FILE__), array('coolclock'), '2.1.4', true);
-		
-		// could use http://cdnjs.cloudflare.com/ajax/libs/flot/0.7/excanvas.min.js here...
-		wp_register_script('excanvas', plugins_url('/js/excanvas.compiled.js', __FILE__), array(), '3', true);
+
 	}
  
 	static function print_scripts() {
+
 		if ( ! self::$add_script )
 			return;
  
-		wp_print_scripts('coolclock');
+		wp_print_scripts( 'coolclock' );
 
 		if ( self::$add_moreskins )
 			wp_print_scripts('coolclock-moreskins');
-			
+
 		if ( self::$add_customskins ) {
 				echo '<script type="text/javascript">jQuery.extend(CoolClock.config.skins, {
 ';
@@ -359,13 +384,71 @@ class CoolClock {
 				echo '});</script>
 ';
 		}
-		
+
 		echo '<!--[if lt IE 9]>'; //<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.7/excanvas.min.js"></script>
-		wp_print_scripts('excanvas');
+		wp_print_scripts( 'excanvas' );
 		echo '<![endif]-->
 ';
+
 	}
+
 }
  
-CoolClock::init();
+CoolClock::go();
+
+/**
+ * CoolClock Widget Class
+ */
+class CoolClock_Widget extends WP_Widget {
+
+	/** constructor -- name this the same as the class above */
+	function CoolClock_Widget() {
+		parent::WP_Widget( 
+				'coolclock-widget', 
+				__('Analog Clock', 'coolclock'), 
+				array( 
+					'classname' => 'coolclock', 
+					'description' => __('Add an analog clock to your sidebar.', 'coolclock') 
+					), 
+				array( 
+					'width' => 300, 
+					'id_base' => 'coolclock-widget' 
+					) 
+				);  	
+	}
+ 
+	/** @see WP_Widget::widget -- do not rename this */
+	function widget( $args, $instance ) {
+
+		extract( $args );
+		$title = apply_filters( 'widget_title', $instance['title'] );
+
+		// Print output
+		echo $before_widget;
+
+		if ( $title )
+			echo $before_title . $title . $after_title;
+
+		echo CoolClock::widget( $args, $instance );
+
+		echo $after_widget;
+
+	}
+
+	/** @see WP_Widget::update -- do not rename this */
+	function update( $new_instance, $old_instance ) {
+
+		return CoolClock::update( $new_instance, $old_instance );
+
+	}
+
+	/** @see WP_Widget::form -- do not rename this */
+	function form( $instance ) {
+
+		// Print output
+		echo CoolClock::form( $this, $instance, $defaults );
+
+	}
+
+}
 

@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: CoolClock/2.0\n"
+"Project-Id-Version: CoolClock/2.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-21 21:29+0100\n"
-"PO-Revision-Date: 2012-12-21 21:30+0100\n"
+"POT-Creation-Date: 2012-12-26 02:38+0100\n"
+"PO-Revision-Date: 2012-12-26 03:34+0100\n"
 "Last-Translator: RavanH <ravanhagen@gmail.com>\n"
 "Language-Team:  <ravanhagen@gmail.com>\n"
 "Language: \n"
@@ -16,222 +16,260 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPath-1: ../../coolclock-pro\n"
 
-#: ../coolclock.php:22
-msgid "Analog Clock"
-msgstr ""
-
-#: ../coolclock.php:25
-msgid "Add an analog clock to your sidebar."
-msgstr ""
-
-#: ../coolclock.php:196
+#: ../coolclock.php:160
 msgid "Swiss Rail"
 msgstr ""
 
-#: ../coolclock.php:197
+#: ../coolclock.php:161
 msgid "Chunky Swiss"
 msgstr ""
 
-#: ../coolclock.php:198
+#: ../coolclock.php:162
 msgid "Chunky Swiss Black"
 msgstr ""
 
-#: ../coolclock.php:199
+#: ../coolclock.php:163
 msgid "Fancy"
 msgstr ""
 
-#: ../coolclock.php:200
+#: ../coolclock.php:164
 msgid "Machine"
 msgstr ""
 
-#: ../coolclock.php:201
+#: ../coolclock.php:165
 msgid "SimonBaird.com"
 msgstr ""
 
-#: ../coolclock.php:202
+#: ../coolclock.php:166
 msgid "Classic by Bonstio"
 msgstr ""
 
-#: ../coolclock.php:203
+#: ../coolclock.php:167
 msgid "Modern by Bonstio"
 msgstr ""
 
-#: ../coolclock.php:204
+#: ../coolclock.php:168
 msgid "Simple by Bonstio"
 msgstr ""
 
-#: ../coolclock.php:205
+#: ../coolclock.php:169
 msgid "SecurePHP"
 msgstr ""
 
-#: ../coolclock.php:206
+#: ../coolclock.php:170
 msgid "Tes2"
 msgstr ""
 
-#: ../coolclock.php:207
+#: ../coolclock.php:171
 msgid "Lev"
 msgstr ""
 
-#: ../coolclock.php:208
+#: ../coolclock.php:172
 msgid "Sand"
 msgstr ""
 
-#: ../coolclock.php:209
+#: ../coolclock.php:173
 msgid "Sun"
 msgstr ""
 
-#: ../coolclock.php:210
+#: ../coolclock.php:174
 msgid "Tor"
 msgstr ""
 
-#: ../coolclock.php:211
+#: ../coolclock.php:175
 msgid "Cold"
 msgstr ""
 
-#: ../coolclock.php:212
+#: ../coolclock.php:176
 msgid "Babosa"
 msgstr ""
 
-#: ../coolclock.php:213
+#: ../coolclock.php:177
 msgid "Tumb"
 msgstr ""
 
-#: ../coolclock.php:214
+#: ../coolclock.php:178
 msgid "Stone"
 msgstr ""
 
-#: ../coolclock.php:215
+#: ../coolclock.php:179
 msgid "Disc"
 msgstr ""
 
-#: ../coolclock.php:216
+#: ../coolclock.php:180
 msgid "Watermelon by Yoo Nhe"
 msgstr ""
 
-#: ../coolclock.php:217
+#: ../coolclock.php:181
 msgid "Minimal"
 msgstr ""
 
-#: ../coolclock.php:224
+#: ../coolclock.php:188
 msgid "Linear"
 msgstr ""
 
-#: ../coolclock.php:225
+#: ../coolclock.php:189
 msgid "Logarithmic"
 msgstr ""
 
-#: ../coolclock.php:226
+#: ../coolclock.php:190
 msgid "Logarithmic reversed"
 msgstr ""
 
-#: ../coolclock.php:232
+#: ../coolclock.php:194
 msgid "Title:"
 msgstr ""
 
-#: ../coolclock.php:236
+#: ../coolclock.php:198
 msgid "Clock"
 msgstr ""
 
-#: ../coolclock.php:238
+#: ../coolclock.php:199
 msgid "Skin:"
 msgstr ""
 
-#: ../coolclock.php:239
+#: ../coolclock.php:209
 msgid "Custom (define below)"
 msgstr ""
 
-#: ../coolclock.php:241
+#: ../coolclock.php:212
 msgid "Custom skin parameters:"
 msgstr ""
 
-#: ../coolclock.php:244
+#: ../coolclock.php:216
 msgid "Radius:"
 msgstr ""
 
-#: ../coolclock.php:248
+#: ../coolclock.php:222
 msgid "Hide second hand"
 msgstr ""
 
-#: ../coolclock.php:251
+#: ../coolclock.php:227
 msgid "Show digital time"
 msgstr ""
 
-#: ../coolclock.php:253
+#: ../coolclock.php:230
 msgid "GMT offset:"
 msgstr ""
 
-#: ../coolclock.php:254
+#: ../coolclock.php:231
 msgid "(leave blank for local time)"
 msgstr ""
 
-#: ../coolclock.php:256
+#: ../coolclock.php:234
 msgid "Scale:"
 msgstr ""
 
-#: ../coolclock.php:265
-#: ../../coolclock-pro/coolclock-pro.php:55
+#: ../coolclock.php:245
+msgid "Align:"
+msgstr ""
+
+#: ../coolclock.php:249
+msgid "none"
+msgstr ""
+
+#: ../coolclock.php:252
+#: ../../coolclock-pro/coolclock-pro.php:134
+msgid "left"
+msgstr ""
+
+#: ../coolclock.php:255
+#: ../../coolclock-pro/coolclock-pro.php:142
+msgid "right"
+msgstr ""
+
+#: ../coolclock.php:258
+#: ../../coolclock-pro/coolclock-pro.php:150
+msgid "center"
+msgstr ""
+
+#: ../coolclock.php:262
+msgid "Subtext:"
+msgstr ""
+
+#: ../coolclock.php:263
+msgid "(basic HTML allowed)"
+msgstr ""
+
+#: ../coolclock.php:267
+#: ../coolclock.php:269
+#: ../../coolclock-pro/coolclock-pro.php:116
 msgid "Background"
 msgstr ""
 
 #: ../coolclock.php:267
+msgid "Pease upgrade the CoolClock - Pro extension."
+msgstr ""
+
+#: ../coolclock.php:267
+msgid "You can download the new version using the remaining download credits and the link that you have received in the confirmation email after your first purchase."
+msgstr ""
+
+#: ../coolclock.php:267
+msgid "If you do not have that email anymore, please contact us."
+msgstr ""
+
+#: ../coolclock.php:267
+msgid "Do NOT resave widget settings before upgrading the pro extension or your advanced settings will be lost!"
+msgstr ""
+
+#: ../coolclock.php:269
 msgid "Available in the Pro extension &raquo;"
 msgstr ""
 
-#: ../../coolclock-pro/coolclock-pro.php:57
+#: ../coolclock.php:408
+msgid "Analog Clock"
+msgstr ""
+
+#: ../coolclock.php:411
+msgid "Add an analog clock to your sidebar."
+msgstr ""
+
+#: ../../coolclock-pro/coolclock-pro.php:119
 msgid "Image URL:"
 msgstr ""
 
-#: ../../coolclock-pro/coolclock-pro.php:61
+#: ../../coolclock-pro/coolclock-pro.php:126
 msgid "Repeat image"
 msgstr ""
 
-#: ../../coolclock-pro/coolclock-pro.php:63
+#: ../../coolclock-pro/coolclock-pro.php:129
 msgid "Position:"
 msgstr ""
 
-#: ../../coolclock-pro/coolclock-pro.php:64
-#: ../../coolclock-pro/coolclock-pro.php:82
-msgid "left"
-msgstr ""
-
-#: ../../coolclock-pro/coolclock-pro.php:64
-#: ../../coolclock-pro/coolclock-pro.php:86
+#: ../../coolclock-pro/coolclock-pro.php:138
 msgid "top"
 msgstr ""
 
-#: ../../coolclock-pro/coolclock-pro.php:64
-#: ../../coolclock-pro/coolclock-pro.php:82
-msgid "right"
-msgstr ""
-
-#: ../../coolclock-pro/coolclock-pro.php:64
-#: ../../coolclock-pro/coolclock-pro.php:86
+#: ../../coolclock-pro/coolclock-pro.php:146
 msgid "bottom"
 msgstr ""
 
-#: ../../coolclock-pro/coolclock-pro.php:64
-msgid "center"
-msgstr ""
-
-#: ../../coolclock-pro/coolclock-pro.php:67
+#: ../../coolclock-pro/coolclock-pro.php:154
 msgid "Width"
 msgstr ""
 
-#: ../../coolclock-pro/coolclock-pro.php:69
+#: ../../coolclock-pro/coolclock-pro.php:156
 msgid "Height"
 msgstr ""
 
-#: ../../coolclock-pro/coolclock-pro.php:77
-msgid "Clock position relative to background:"
+#: ../../coolclock-pro/coolclock-pro.php:160
+msgid "Color:"
 msgstr ""
 
-#: ../../coolclock-pro/coolclock-pro.php:80
-#: ../../coolclock-pro/coolclock-pro.php:84
-msgid "pixels"
+#: ../../coolclock-pro/coolclock-pro.php:164
+msgid "Border radius:"
 msgstr ""
 
-#: ../../coolclock-pro/coolclock-pro.php:81
-#: ../../coolclock-pro/coolclock-pro.php:85
-msgid "from"
+#: ../../coolclock-pro/coolclock-pro.php:168
+msgid "Clock position relative to background from:"
+msgstr ""
+
+#: ../../coolclock-pro/coolclock-pro.php:170
+msgid "Left"
+msgstr ""
+
+#: ../../coolclock-pro/coolclock-pro.php:172
+msgid "Top"
 msgstr ""
 
