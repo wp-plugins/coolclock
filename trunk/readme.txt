@@ -165,13 +165,13 @@ Please report any issues on the Support tab.
 
 == Upgrade Notice ==
 
-= 2.1 =
+= 2.9 =
 Clock scales linear, logarithmic and logarithmic reveresed.
 
 
 == Changelog ==
 
-= 2.1 =
+= 2.9 =
 * CoolClock.js version 3.0.0-pre
 * Allow shortcode in text widget
 * NEW: Subtext option
