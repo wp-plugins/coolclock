@@ -24,6 +24,8 @@ class CoolClock {
 	static $add_moreskins;
 
 	static $add_customskins;
+	
+	static $done_excanvas = false;
 
 	static $defaults = array (
 			'skin' => 'swissRail',
@@ -359,11 +361,27 @@ class CoolClock {
 		}
 
 		$output .= '"></canvas>'.$subtext.'</div>';
+		
+		// before returning, try including excanvas which needs to be there before the first canvas...
+		self::print_excanvas();
 
 		return $output;
 
 	}
  
+	static function print_excanvas() {
+		
+		if ( self::$done_excanvas )
+			return;
+
+		echo '<!--[if IE]>';
+		wp_print_scripts( 'excanvas' );
+		echo '<![endif]-->
+';
+		self::$done_excanvas = true;
+
+	}
+
 	static function print_scripts() {
 
 		if ( ! self::$add_script )
@@ -384,11 +402,6 @@ class CoolClock {
 				echo '});</script>
 ';
 		}
-
-		echo '<!--[if lt IE 9]>';
-		wp_print_scripts( 'excanvas' );
-		echo '<![endif]-->
-';
 
 	}
 
