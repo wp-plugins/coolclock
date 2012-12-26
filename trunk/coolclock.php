@@ -385,7 +385,7 @@ class CoolClock {
 ';
 		}
 
-		echo '<!--[if lt IE 9]>'; //<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.7/excanvas.min.js"></script>
+		echo '<!--[if lt IE 9]>';
 		wp_print_scripts( 'excanvas' );
 		echo '<![endif]-->
 ';
