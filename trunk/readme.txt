@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravan
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode, logarithmic clock
 Requires at least: 2.9
 Tested up to: 3.5
-Stable tag: 2.0
+Stable tag: 2.9
 
 Show an analog clock on your WordPress site sidebar or in post and page content.
 
@@ -16,7 +16,7 @@ This plugin integrates [CoolClock - The Javascript Analog Clock](http://randomib
 
 - Can be added via a widget, shortcode or theme function
 - No flash, meaning compatible with pads and most other javascript enabled mobile devices
-- 21 different skins to choose from 
+- 21 different skins to choose from or
 - Custom skin option to create your own skin style
 - Linear or logarithmic time scale
 
@@ -24,8 +24,10 @@ See [the FAQ's](http://wordpress.org/extend/plugins/coolclock/faq/) to learn how
 
 = Pro features =
 
-- Extra skins
-- Custom background image 
+- Custom background image and/or
+- Background color 
+- Border radius
+- One extra skin for use with background image
 - Advanced positioning options
 
 Pro features come with the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/).
@@ -78,15 +80,19 @@ First of all, you can pick a preset skin. There are 21 skins made by other users
 - Hide second hand;
 - Show digital time;
 - GMT Offset - use this if you want one or more clocks to show the time for other timezones;
-- Scale - Linear is our standard clock scale, the other two show a logarithmic time scale.
+- Scale - linear is our standard clock scale, the other two show a logarithmic time scale;
+- Align - left, center or right;
+- Subtext - optional text, centered below the clock.
 
 Then there are extra options availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/) which allow for more customisation:
 
-- Background image - Define the full URL or path to an image to serve as background
-- Repeat image
-- Background position - center, top, right, bottom or left of the wrapping div (define div size below)
-- Width and height - define the size of the wrapping div that carries the background image
-- Clock position relative to background - here you can position the clock relative to top or bottom and left or right border of the wrapping div (as defined above)
+- Background image - define the full URL or path to an image to serve as background;
+- Repeat image;
+- Background position - center, top, right, bottom or left of the wrapping div (define div size below);
+- Width and height - define the size of the wrapping div that holds the background image;
+- Background color - define a color value in hex or rgb(a) format, or a css color name;
+- Border radius - optional rounded borders, higher is rounder;
+- Clock position relative to background - here you can position the clock relative to top and left border of the wrapping div (as defined above) that holds the background image.
 
 
 = How can I create a custom skin? =
@@ -130,7 +136,8 @@ The following parameters are available:
 - **noseconds** -- set to true (or 1) to hide the second hand
 - **gmtoffset** -- a number to define a timezone relative the Greenwhich Mean Time. Do not set this parameter to default to local time.
 - **showdigital** -- set to true (or 1) to show the time in digital format too
-- **scale** -- must be one of these: 'linear' (default scale), 'logClock' or  'logClockRev'. Linear is our normal clock scale, the other two show a logarithmic time scale.
+- **scale** -- must be one of these: 'linear' (default scale), 'logClock' or  'logClockRev'. Linear is our normal clock scale, the other two show a logarithmic time scale
+- **subtext** -- optional text, centered below the clock
 - **align** -- sets floating of the clock: 'left', 'right' or 'center'
 
 Example: `[coolclock skin="chunkySwissOnBlack" radius="140" showdigital=true align="left"]`
@@ -158,11 +165,17 @@ Please report any issues on the Support tab.
 
 == Upgrade Notice ==
 
-= 2.0 =
+= 2.1 =
 Clock scales linear, logarithmic and logarithmic reveresed.
 
 
 == Changelog ==
+
+= 2.1 =
+* CoolClock.js version 3.0.0-pre
+* Allow shortcode in text widget
+* NEW: Subtext option
+* NEW: Widget align option
 
 = 2.0 =
 * NEW: logClock option
