@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravan
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode, logarithmic clock
 Requires at least: 2.9
 Tested up to: 3.5
-Stable tag: 2.9
+Stable tag: 2.9.1
 
 Show an analog clock on your WordPress site sidebar or in post and page content.
 
