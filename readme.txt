@@ -91,7 +91,7 @@ Then there are extra options availabe in the [CoolClock - Pro extension](http://
 - Background position - center, top, right, bottom or left of the wrapping div (define div size below);
 - Width and height - define the size of the wrapping div that holds the background image;
 - Background color - define a color value in hex or rgb(a) format, or a css color name;
-- Border radius - optional rounded borders, higher is rounder;
+- Border radius - optional rounded corners, higher is rounder;
 - Clock position relative to background - here you can position the clock relative to top and left border of the wrapping div (as defined above) that holds the background image.
 
 
@@ -142,6 +142,19 @@ The following parameters are available:
 
 Example: `[coolclock skin="chunkySwissOnBlack" radius="140" showdigital=true align="left"]`
 
+Then there are extra options availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/) which allow for more customisation:
+
+- **background_image** - define full URL or path to an image to serve as background
+- **background_height** - give a height in pixels (default: auto = clock plus subtext height)
+- **background_width** - give a width in pixels  (default: clock width)
+- **background_color** - define a CSS color value in hex, rgb(a) format, or color name
+- **background_position** - CSS positioning like 'left top', 'bottom', '10% 70%' or '10px 20px' (default: 'left top')
+- **background_repeat** - repeat, repeat-x, repeat-y, no-repeat (default: no-repeat)
+- **background_border_radius** - optional rounded corners value, higher is rounder
+
+Example: `[coolclock skin="minimal" radius="63" align="left" background_image="http://i35.tinypic.com/990wtx.png"]`
+
+
 = I'm building my own theme. Is there a theme function available? =
 
 Yes, you can use a built-in WordPress function that parses a shortcode. To place the same clock as in the shortcode example above, anywhere in your theme, use this:
@@ -165,13 +178,17 @@ Please report any issues on the Support tab.
 
 == Upgrade Notice ==
 
-= 2.9 =
-Clock scales linear, logarithmic and logarithmic reveresed.
+= 2.9.1 =
+Shortcode filter.
 
 
 == Changelog ==
 
+= 2.9.1 =
+* Shortcode filter
+
 = 2.9 =
+* BUGFIX: excanvas included too late
 * CoolClock.js version 3.0.0-pre
 * Allow shortcode in text widget
 * NEW: Subtext option

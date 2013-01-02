@@ -5,7 +5,7 @@ Plugin URI: http://status301.net/wordpress-plugins/coolclock/
 Description: Add an analog clock to your sidebar.
 Text Domain: coolclock
 Domain Path: languages
-Version: 2.9
+Version: 2.9.1
 Author: RavanH
 Author URI: http://status301.net/
 */
@@ -15,7 +15,7 @@ Author URI: http://status301.net/
  */
 class CoolClock {
 
-	static $plugin_version = '2.9';
+	static $plugin_version = '2.9.1';
 
 	static $script_version = '3.0.0-pre';
 
@@ -38,7 +38,10 @@ class CoolClock {
 
 	static $advanced;
 
-	static $advanced_defaults = array ();
+	static $advanced_defaults = array (
+			'subtext' => '',
+			'align' => ''
+		);
 
 	static $default_skins = array (
 	    		'swissRail',
@@ -84,16 +87,6 @@ class CoolClock {
 		$skin = ( isset( $instance['skin'] ) ) 
 			? $instance['skin'] : 'swissRail';
 
-		if ( isset($instance['align']) )
-			$align = $instance['align'];
-		else
-			$align = false;
-
-		if ( isset($instance['subtext']) )
-			$subtext =  '<div style="width:100%;text-align:center;padding-bottom:10px">' . apply_filters('widget_text', $instance['subtext'], $instance) . '</div>';
-		else
-			$subtext = '';
-
 		// add custom skin parameters to the plugin skins array
 		if ( 'custom_'.$this->number == $skin )
 			self::$advanced_skins_config[$skin] = $instance['custom_skin'];
@@ -112,8 +105,10 @@ class CoolClock {
 					'noseconds' => $instance['noseconds'],
 					'gmtoffset' => $instance['gmtoffset'],
 					'showdigital' => $instance['showdigital'],
-					'scale' => $instance['scale']
-					), $align, $subtext );
+					'scale' => $instance['scale'],
+					'align' => $instance['align'],
+					'subtext' => apply_filters('widget_text', $instance['subtext'], $instance)
+					) );
 		
 		return apply_filters( 'coolclock_widget_advanced', $output, $args, $instance );
 
@@ -302,17 +297,7 @@ class CoolClock {
 
 	static function handle_shortcode( $atts ) {
 
-		if ( isset( $atts['align'] ) )
-			$align = $atts['align'];
-		else
-			$align = false;
-
-		if ( isset( $atts['subtext'] ) )
-			$subtext = '<div style="width:100%;text-align:center;padding-bottom:10px">' . $atts['subtext'] . '</div>';
-		else
-			$subtext = '';
-
-		$atts = shortcode_atts( self::$defaults, $atts );
+		$atts = shortcode_atts( array_merge( self::$defaults, self::$advanced_defaults ), $atts );
 
 		// set footer script flags
 		self::$add_script = true;
@@ -323,27 +308,25 @@ class CoolClock {
 
 		// return the clock unless it's a feed
 		if ( !is_feed() ) {
-			return self::canvas( $atts, $align, $subtext );
+			$output = self::canvas( $atts );
+			return apply_filters( 'coolclock_shortcode_advanced', $output, $atts );
 		} else {
 			return '';	
 		}
 
 	}
 	
-	static function canvas( $atts, $align = false, $subtext = '' ) {
-
-		$atts = shortcode_atts( self::$defaults, $atts );
+	static function canvas( $atts ) {
 
 		extract( $atts );
 
-		$clock_width = 2 * $radius . 'px'; 
-
 		$output = '<div';
 		
-		// align class
+		// align class ans style
 		$output .= ( $align ) ? ' class="align' . $align . '"' : '';
-		$output .= ' style="width:' . $clock_width . ';height:auto"><canvas class="CoolClock:' . $skin . ':' . $radius . ':';
-		// parameters
+		$output .= ' style="width:' . 2 * $radius . 'px;height:auto">';
+		// canvas parameters
+		$output .= '<canvas class="CoolClock:' . $skin . ':' . $radius . ':';
 		$output .= ( $noseconds == 'true' ||  $noseconds == '1' ) ? 'noSeconds:' : ':';
 		$output .= $gmtoffset.':';
 		$output .= ( $showdigital == 'true' || $showdigital == '1' ) ? 'showDigital' : '';
@@ -360,7 +343,8 @@ class CoolClock {
 				$output .= ':logClockRev';
 		}
 
-		$output .= '"></canvas>'.$subtext.'</div>';
+		$output .= '"></canvas>';
+		$output .= ( $subtext ) ? '<div style="width:100%;text-align:center;padding-bottom:10px">' . $subtext . '</div></div>' : '</div>';
 		
 		// before returning, try including excanvas which needs to be there before the first canvas...
 		self::print_excanvas();
