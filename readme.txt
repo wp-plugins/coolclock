@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravan
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode, logarithmic clock
 Requires at least: 2.9
 Tested up to: 3.5
-Stable tag: 2.9.1
+Stable tag: 2.9.2
 
 Show an analog clock on your WordPress site sidebar or in post and page content.
 
@@ -178,13 +178,14 @@ Please report any issues on the Support tab.
 
 == Upgrade Notice ==
 
-= 2.9.1 =
-Shortcode filter.
+= 2.9.2 =
+Thread between second hand tip and 3 o'clock in IE work-around.
 
 
 == Changelog ==
 
-= 2.9.1 =
+= 2.9.2 =
+* FIX: Thread between tip of the second hand and 3 o'clock in IE
 * Shortcode filter
 
 = 2.9 =

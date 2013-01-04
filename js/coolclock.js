@@ -258,7 +258,8 @@ CoolClock.prototype = {
 		this.ctx.clearRect(0,0,this.renderRadius*2,this.renderRadius*2);
 
 		// Draw the outer edge of the clock
-		if (skin.outerBorder)
+		// Outer border causes weird stread effect in IE so not in IE
+		if (skin.outerBorder && !CoolClock.config.isIE)
 			this.fullCircleAt(this.renderRadius,this.renderRadius,skin.outerBorder);
 
 		// Draw the tick marks. Every 5th one is a big one
