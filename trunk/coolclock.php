@@ -5,7 +5,7 @@ Plugin URI: http://status301.net/wordpress-plugins/coolclock/
 Description: Add an analog clock to your sidebar.
 Text Domain: coolclock
 Domain Path: languages
-Version: 2.9.2
+Version: 2.9.3
 Author: RavanH
 Author URI: http://status301.net/
 */
@@ -15,9 +15,9 @@ Author URI: http://status301.net/
  */
 class CoolClock {
 
-	static $plugin_version = '2.9.2';
+	static $plugin_version = '2.9.3';
 
-	static $script_version = '3.0.0-pre';
+	static $script_version = '3.0.0-pre2';
 
 	static $add_script;
 
@@ -110,7 +110,7 @@ class CoolClock {
 					'subtext' => apply_filters('widget_text', $instance['subtext'], $instance)
 					) );
 		
-		return apply_filters( 'coolclock_widget_advanced', $output, $args, $instance );
+		return apply_filters( 'coolclock_widget', $output, $args, $instance );
 
 	}
 
@@ -133,16 +133,11 @@ class CoolClock {
 			$instance['subtext'] = stripslashes( wp_filter_post_kses( addslashes($new_instance['subtext']) ) ); 
 		
 
-    		return apply_filters( 'coolclock_widget_update_advanced', $instance, $new_instance );
+    		return apply_filters( 'coolclock_widget_update', $instance, $new_instance );
 
 	}
 
-	static function form( $obj, $instance, $defaults ) {
-
-		$defaults = array ( 
-				'title' => '',
-				'custom_skin' => '',
-			);
+	static function form( $obj, $instance, $defaults = array ('title'=>'','custom_skin'=>'') ) {
 		
 		$defaults = array_merge( $defaults, self::$defaults, self::$advanced_defaults );
 	
@@ -265,7 +260,7 @@ class CoolClock {
 		else
 	    		$advanced_form = '<p><strong>' . __('Background') . '</strong></p><p><a href="http://status301.net/wordpress-plugins/coolclock-pro/">' . __('Available in the Pro extension &raquo;', 'coolclock') . '</a></p>';
 		
-		$output .= apply_filters( 'coolclock_widget_form_advanced', $advanced_form, $obj, $instance, $defaults );
+		$output .= apply_filters( 'coolclock_widget_form', $advanced_form, $obj, $instance, $defaults );
 
 		return $output;
 	}
@@ -283,19 +278,28 @@ class CoolClock {
 	static function init() {	
 
 		add_shortcode( 'coolclock', array( __CLASS__, 'handle_shortcode' ) );
+		//move wpautop filter to AFTER shortcode is processed
+//		remove_filter( 'the_content', 'wpautop' );
+//		add_filter( 'the_content', 'wpautop' , 99);
+//		add_filter( 'the_content', 'shortcode_unautop', 100);
 		// allow shortcode in text widgets
-		add_filter('widget_text', 'do_shortcode', 11);
+		//add_filter('widget_text', 'do_shortcode', 11);
 
 		wp_register_script( 'coolclock', plugins_url('/js/coolclock.min.js', __FILE__), array('jquery'), self::$script_version, true );
 		wp_register_script( 'coolclock-moreskins', plugins_url('/js/moreskins.min.js', __FILE__), array('coolclock'), self::$script_version, true );
-		// could use http://cdnjs.cloudflare.com/ajax/libs/flot/0.7/excanvas.min.js here...
-		wp_register_script( 'excanvas', plugins_url( '/js/excanvas.compiled.js', __FILE__ ), array(), '3', true );
+		// could use plugins_url( '/js/excanvas.min.js', __FILE__ ) (version 73, but it seems to cause issues for IE in compatibility mode)
+		// or http://cdnjs.cloudflare.com/ajax/libs/flot/0.7/excanvas.min.js
+		// or http://randomibis.com/coolclock/excanvas.js
+		wp_register_script( 'excanvas', plugins_url( '/js/excanvas.min.js', __FILE__ ), array(), '73', true );
 
 		add_action( 'wp_footer', array( __CLASS__, 'print_scripts' ) );
 
 	}
 
 	static function handle_shortcode( $atts ) {
+
+		if ( !is_feed() )
+			return '';	
 
 		$atts = shortcode_atts( array_merge( self::$defaults, self::$advanced_defaults ), $atts );
 
@@ -306,13 +310,8 @@ class CoolClock {
 		if ( isset( self::$advanced_skins_config[$atts['skin']] ) )
 			self::$add_customskins = true;
 
-		// return the clock unless it's a feed
-		if ( !is_feed() ) {
-			$output = self::canvas( $atts );
-			return apply_filters( 'coolclock_shortcode_advanced', $output, $atts );
-		} else {
-			return '';	
-		}
+		$output = self::canvas( $atts );
+		return apply_filters( 'coolclock_shortcode', $output, $atts );
 
 	}
 	
@@ -358,7 +357,7 @@ class CoolClock {
 		if ( self::$done_excanvas )
 			return;
 
-		echo '<!--[if IE]>';
+		echo '<!--[if lte IE 8]>';
 		wp_print_scripts( 'excanvas' );
 		echo '<![endif]-->
 ';
@@ -443,7 +442,7 @@ class CoolClock_Widget extends WP_Widget {
 	function form( $instance ) {
 
 		// Print output
-		echo CoolClock::form( $this, $instance, $defaults );
+		echo CoolClock::form( $this, $instance );
 
 	}
 

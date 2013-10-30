@@ -1,5 +1,6 @@
 /**
- * CoolClock 3.0.0-pre
+ * CoolClock 3.0.0-pre 
+ * Global Tick branch with https://github.com/henrahmagix/CoolClock/commit/00d48a01b1aeadbeb0b7d167aca892de78659b76 applied
  *
 Copyright (c) 2010-2013, Simon Baird.
 All rights reserved.
@@ -90,6 +91,18 @@ CoolClock.config = {
 
 	// For giving a unique id to coolclock canvases with no id
 	noIdCount: 0
+}
+
+// Main tick handler. Refresh all the clocks then setup the next tick
+CoolClock.tick = function() {
+
+	for (var clockId in CoolClock.config.clockTracker) {
+		var clock = CoolClock.config.clockTracker[clockId];
+		if (clock.stillHere() && clock.active) {
+			clock.refreshDisplay()
+		}
+	}
+	this.tickTimeout = setTimeout(CoolClock.tick, CoolClock.config.tickDelay);
 };
 
 // Define the CoolClock object's methods
@@ -136,12 +149,8 @@ CoolClock.prototype = {
 		// Keep track of this object
 		CoolClock.config.clockTracker[this.canvasId] = this;
 
-		// should we be running the clock?
-		this.active = true;
-		this.tickTimeout = null;
-
 		// Start the clock going
-		this.tick();
+		this.start();
 
 		return this;
 	},
@@ -152,15 +161,12 @@ CoolClock.prototype = {
 		this.ctx.globalAlpha = skin.alpha;
 		this.ctx.lineWidth = skin.lineWidth;
 
-		if (!CoolClock.config.isIE) {
-			this.ctx.beginPath();
-		}
-
 		if (CoolClock.config.isIE) {
 			// excanvas doesn't scale line width so we will do it here
 			this.ctx.lineWidth = this.ctx.lineWidth * this.scale;
 		}
 
+		this.ctx.beginPath();
 		this.ctx.arc(x, y, skin.radius, 0, 2*Math.PI, false);
 
 		if (CoolClock.config.isIE) {
@@ -258,8 +264,7 @@ CoolClock.prototype = {
 		this.ctx.clearRect(0,0,this.renderRadius*2,this.renderRadius*2);
 
 		// Draw the outer edge of the clock
-		// Outer border causes weird stread effect in IE so not in IE
-		if (skin.outerBorder && !CoolClock.config.isIE)
+		if (skin.outerBorder)
 			this.fullCircleAt(this.renderRadius,this.renderRadius,skin.outerBorder);
 
 		// Draw the tick marks. Every 5th one is a big one
@@ -322,10 +327,6 @@ CoolClock.prototype = {
 		}
 	},
 
-	// Set timeout to trigger a tick in the future
-	nextTick: function() {
-		this.tickTimeout = setTimeout("CoolClock.config.clockTracker['"+this.canvasId+"'].tick()",this.tickDelay);
-	},
 
 	// Check the canvas element hasn't been removed
 	stillHere: function() {
@@ -335,23 +336,11 @@ CoolClock.prototype = {
 	// Stop this clock
 	stop: function() {
 		this.active = false;
-		clearTimeout(this.tickTimeout);
 	},
 
 	// Start this clock
 	start: function() {
-		if (!this.active) {
-			this.active = true;
-			this.tick();
-		}
-	},
-
-	// Main tick handler. Refresh the clock then setup the next tick
-	tick: function() {
-		if (this.stillHere() && this.active) {
-			this.refreshDisplay()
-			this.nextTick();
-		}
+		this.active = true;
 	},
 
 	getSkin: function() {
@@ -386,9 +375,10 @@ CoolClock.findAndCreateClocks = function() {
 			});
 		}
 	}
+	// Start ticking
+	CoolClock.tick();
 };
 
 // If you don't have jQuery then you need a body onload like this: <body onload="CoolClock.findAndCreateClocks()">
 // If you do have jQuery and it's loaded already then we can do it right now
 if (window.jQuery) jQuery(document).ready(CoolClock.findAndCreateClocks);
-
