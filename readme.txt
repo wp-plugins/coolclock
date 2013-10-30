@@ -3,8 +3,8 @@ Contributors: RavanH
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravanhagen%40gmail%2ecom&item_name=CoolClock%20for%20WordPress&item_number=1%2e3%2e4%2e9&no_shipping=0&tax=0&charset=UTF%2d8&currency_code=EUR
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode, logarithmic clock
 Requires at least: 2.9
-Tested up to: 3.5
-Stable tag: 2.9.2
+Tested up to: 3.7
+Stable tag: 2.9.3
 
 Show an analog clock on your WordPress site sidebar or in post and page content.
 
@@ -166,7 +166,11 @@ Yes, you can use a built-in WordPress function that parses a shortcode. To place
 
 == Known Issues ==
 
-Please report any issues on the Support tab.
+1. When IE 8 is manually put or forced (through X-UA-Compatibility meta tag or response header) into Compatibility mode, the Clock will --even though the canvas area is put in place-- remain invisible.
+
+2. When a shortcode is not placed on its own line but on the same line with text, image or even another shortcode, then the output (div with canvas tag) will be wrapped inside a paragraph tag. While most browsers do not have a problem displaying the clock, this *will* cause a validation error.
+
+Please report any other issues on the [Support page](http://wordpress.org/support/plugin/coolclock).
 
 
 == Screenshots ==
@@ -178,11 +182,16 @@ Please report any issues on the Support tab.
 
 == Upgrade Notice ==
 
-= 2.9.2 =
-Thread between second hand tip and 3 o'clock in IE work-around.
-
+= 2.9.3 =
+Using global tick for multiple clocks.
 
 == Changelog ==
+
+= 2.9.3 =
+* TODO: RECONSIDER FIX: prevent shortcode canvas being wrapped in P tags TODO
+* FIX: undefined index in widget form
+* NEW: Use Globaltick branch script version 3.0.0-pre
+* NEW: Clock skin shared by user MrCarlLister
 
 = 2.9.2 =
 * FIX: Thread between tip of the second hand and 3 o'clock in IE

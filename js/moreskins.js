@@ -209,4 +209,12 @@ CoolClock.config.skins = {
 		secondHand:       { lineWidth: 2, startAt: 70, endAt: 94, color: "#d93d04", alpha: .85 },
 		secondDecoration: { lineWidth: 1, startAt: 70, radius: 3, fillColor: "red", color: "black", alpha: .7 }
 	}
+
+	// By MrCarlLister
+	lister: {
+		largeIndicator:   { lineWidth: 10, radius:5, startAt: 70, endAt: 90, color: "#76777b", alpha: 1 },
+		hourHand:         { lineWidth: 6, startAt: 10, endAt: 35, color: "#76777b", alpha: 1 },
+		minuteHand:       { lineWidth: 6, startAt:10, endAt: 55, color: "#76777b", alpha: 1 },
+		secondHand:       { lineWidth: 4, startAt: 0, endAt: 85, color: "#76777b", alpha: 1 }
+	}
 };
