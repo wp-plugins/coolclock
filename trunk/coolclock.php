@@ -5,7 +5,7 @@ Plugin URI: http://status301.net/wordpress-plugins/coolclock/
 Description: Add an analog clock to your sidebar.
 Text Domain: coolclock
 Domain Path: languages
-Version: 2.9.3
+Version: 2.9.4
 Author: RavanH
 Author URI: http://status301.net/
 */
@@ -15,7 +15,7 @@ Author URI: http://status301.net/
  */
 class CoolClock {
 
-	static $plugin_version = '2.9.3';
+	static $plugin_version = '2.9.4';
 
 	static $script_version = '3.0.0-pre2';
 
@@ -67,7 +67,8 @@ class CoolClock {
 	    		'Tumb',
 	    		'Stone',
 	    		'Disc',
-	    		'watermelon'
+	    		'watermelon',
+	    		'lister'
 	    	);
 
 	static $advanced_skins = array ();
@@ -110,7 +111,7 @@ class CoolClock {
 					'subtext' => apply_filters('widget_text', $instance['subtext'], $instance)
 					) );
 		
-		return apply_filters( 'coolclock_widget', $output, $args, $instance );
+		return apply_filters( 'coolclock_widget_advanced', $output, $args, $instance );
 
 	}
 
@@ -133,11 +134,11 @@ class CoolClock {
 			$instance['subtext'] = stripslashes( wp_filter_post_kses( addslashes($new_instance['subtext']) ) ); 
 		
 
-    		return apply_filters( 'coolclock_widget_update', $instance, $new_instance );
+    		return apply_filters( 'coolclock_widget_update_advanced', $instance, $new_instance );
 
 	}
 
-	static function form( $obj, $instance, $defaults = array ('title'=>'','custom_skin'=>'') ) {
+	static function form( $obj, $instance, $defaults = array('title'=>'','custom_skin'=>'') ) {
 		
 		$defaults = array_merge( $defaults, self::$defaults, self::$advanced_defaults );
 	
@@ -170,6 +171,7 @@ class CoolClock {
 		    		'Stone' => __('Stone','coolclock'),
 		    		'Disc' => __('Disc','coolclock'),
 		    		'watermelon' => __('Watermelon by Yoo Nhe','coolclock'),
+		    		'lister' => __('Mister by Carl Lister','coolclock'),
 		    		'minimal' => __('Minimal','coolclock')
 		    	);
 		    
@@ -256,11 +258,11 @@ class CoolClock {
 
 		// Advanced filter
 		if ( class_exists( 'CoolClockAdvanced' ) ) // add an upgrade notice
-			$advanced_form .= '<p><strong>' . __('Background') . '</strong></p><p><strong>' . __('Pease upgrade the CoolClock - Pro extension.', 'coolclock') . '</strong> ' . __('You can download the new version using the remaining download credits and the link that you have received in the confirmation email after your first purchase.', 'coolclock') . ' <a href="http://status301.net/contact-en/">' . __('If you do not have that email anymore, please contact us.', 'coolclock') . '</a></p>' . '<p><strong>' . __('Do NOT resave widget settings before upgrading the pro extension or your advanced settings will be lost!', 'coolclock') . '</strong>';
+			$advanced_form .= '<p><strong>' . __('Background') . '</strong></p><p><strong>' . __('Pease upgrade the CoolClock - Advanced extension.', 'coolclock') . '</strong> ' . __('You can download the new version using the remaining download credits and the link that you have received in the confirmation email after your first purchase.', 'coolclock') . ' <a href="http://status301.net/contact-en/">' . __('If you do not have that email anymore, please contact us.', 'coolclock') . '</a></p>' . '<p><strong>' . __('Do NOT resave widget settings before upgrading the Advanced extension or your advanced settings will be lost!', 'coolclock') . '</strong>';
 		else
-	    		$advanced_form = '<p><strong>' . __('Background') . '</strong></p><p><a href="http://status301.net/wordpress-plugins/coolclock-pro/">' . __('Available in the Pro extension &raquo;', 'coolclock') . '</a></p>';
+	    		$advanced_form = '<p><strong>' . __('Background') . '</strong></p><p><a href="http://status301.net/wordpress-plugins/coolclock-advanced/">' . __('Available in the Advanced extension &raquo;', 'coolclock') . '</a></p>';
 		
-		$output .= apply_filters( 'coolclock_widget_form', $advanced_form, $obj, $instance, $defaults );
+		$output .= apply_filters( 'coolclock_widget_form_advanced', $advanced_form, $obj, $instance, $defaults );
 
 		return $output;
 	}
@@ -282,8 +284,9 @@ class CoolClock {
 //		remove_filter( 'the_content', 'wpautop' );
 //		add_filter( 'the_content', 'wpautop' , 99);
 //		add_filter( 'the_content', 'shortcode_unautop', 100);
+
 		// allow shortcode in text widgets
-		//add_filter('widget_text', 'do_shortcode', 11);
+		add_filter('widget_text', 'do_shortcode', 11);
 
 		wp_register_script( 'coolclock', plugins_url('/js/coolclock.min.js', __FILE__), array('jquery'), self::$script_version, true );
 		wp_register_script( 'coolclock-moreskins', plugins_url('/js/moreskins.min.js', __FILE__), array('coolclock'), self::$script_version, true );
@@ -298,7 +301,7 @@ class CoolClock {
 
 	static function handle_shortcode( $atts ) {
 
-		if ( !is_feed() )
+		if ( is_feed() )
 			return '';	
 
 		$atts = shortcode_atts( array_merge( self::$defaults, self::$advanced_defaults ), $atts );
@@ -311,7 +314,7 @@ class CoolClock {
 			self::$add_customskins = true;
 
 		$output = self::canvas( $atts );
-		return apply_filters( 'coolclock_shortcode', $output, $atts );
+		return apply_filters( 'coolclock_shortcode_advanced', $output, $atts );
 
 	}
 	
