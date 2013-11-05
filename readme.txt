@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravan
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode, logarithmic clock
 Requires at least: 2.9
 Tested up to: 3.7
-Stable tag: 2.9.2
+Stable tag: 2.9.4
 
 Show an analog clock on your WordPress site sidebar or in post and page content.
 
@@ -182,13 +182,12 @@ Please report any other issues on the [Support page](http://wordpress.org/suppor
 
 == Upgrade Notice ==
 
-= 2.9.3 =
-Using global tick for multiple clocks.
+= 2.9.4 =
+New clock skin shared by user MrCarlLister.
 
 == Changelog ==
 
 = 2.9.4 =
-* TODO: RECONSIDER FIX: prevent shortcode canvas being wrapped in P tags TODO
 * FIX: undefined index in widget form
 * NEW: Use Globaltick branch script version 3.0.0-pre
 * NEW: Clock skin shared by user MrCarlLister
