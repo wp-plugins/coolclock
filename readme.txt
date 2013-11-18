@@ -182,10 +182,13 @@ Please report any other issues on the [Support page](http://wordpress.org/suppor
 
 == Upgrade Notice ==
 
-= 2.9.4 =
-New clock skin shared by user MrCarlLister.
+= 2.9.5 =
 
 == Changelog ==
+
+= 2.9.5dev =
+* BUGFIX: non-static method widget()
+* Skin watermelon alpha fix
 
 = 2.9.4 =
 * FIX: undefined index in widget form
