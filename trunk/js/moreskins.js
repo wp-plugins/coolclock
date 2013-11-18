@@ -201,20 +201,20 @@ CoolClock.config.skins = {
 
 	// By Yoo Nhe
 	watermelon: {
-		outerBorder:      { lineWidth: 100, radius: 1.7, color: "#d93d04", alpha: 5 },
-		smallIndicator:   { lineWidth: 2, startAt: 50, endAt: 70, color: "#d93d04", alpha: 5 },
+		outerBorder:      { lineWidth: 100, radius: 1.7, color: "#d93d04", alpha: .75 },
+		smallIndicator:   { lineWidth: 2, startAt: 50, endAt: 70, color: "#d93d04", alpha: .75 },
 		largeIndicator:   { lineWidth: 2, startAt: 45, endAt: 94, color: "#a9bf04", alpha: 1 },
-		hourHand:         { lineWidth: 5, startAt: -20, endAt: 80, color: "#8c0d17", alpha: 1 },
-		minuteHand:       { lineWidth: 2, startAt: -20, endAt: 80, color: "#7c8c03", alpha: .9 },
-		secondHand:       { lineWidth: 2, startAt: 70, endAt: 94, color: "#d93d04", alpha: .85 },
-		secondDecoration: { lineWidth: 1, startAt: 70, radius: 3, fillColor: "red", color: "black", alpha: .7 }
+		hourHand:         { lineWidth: 5, startAt: -20, endAt: 65, color: "#d93d04", alpha: 1 },
+		minuteHand:       { lineWidth: 3, startAt: -20, endAt: 80, color: "#a9bf04", alpha: .9 },
+		secondHand:       { lineWidth: 2, startAt: 70, endAt: 94, color: "#d93d04", alpha: .75 },
+		secondDecoration: { lineWidth: 1, startAt: 70, radius: 3, fillColor: "#d93d04", color: "#d93d04", alpha: .75 }
 	}
 
 	// By MrCarlLister
 	lister: {
-		largeIndicator:   { lineWidth: 10, radius:5, startAt: 70, endAt: 90, color: "#76777b", alpha: 1 },
-		hourHand:         { lineWidth: 6, startAt: 10, endAt: 35, color: "#76777b", alpha: 1 },
-		minuteHand:       { lineWidth: 6, startAt:10, endAt: 55, color: "#76777b", alpha: 1 },
-		secondHand:       { lineWidth: 4, startAt: 0, endAt: 85, color: "#76777b", alpha: 1 }
+		largeIndicator:   { lineWidth: 10, radius:5,  startAt: 78, endAt: 98, color: "#76777b", alpha: 1 },
+		hourHand:         { lineWidth: 7, startAt: 10, endAt: 47, color: "#76777b", alpha: 1 },
+		minuteHand:       { lineWidth: 5, startAt:10, endAt: 65, color: "#76777b", alpha: 1 },
+		secondHand:       { lineWidth: 3, startAt: 0, endAt: 92, color: "#76777b", alpha: 1 }
 	}
 };
