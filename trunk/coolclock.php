@@ -5,7 +5,7 @@ Plugin URI: http://status301.net/wordpress-plugins/coolclock/
 Description: Add an analog clock to your sidebar.
 Text Domain: coolclock
 Domain Path: languages
-Version: 2.9.5dev2
+Version: 2.9.5
 Author: RavanH
 Author URI: http://status301.net/
 */
@@ -15,7 +15,7 @@ Author URI: http://status301.net/
  */
 class CoolClock {
 
-	static $plugin_version = '2.9.5dev2';
+	static $plugin_version = '2.9.5';
 
 	static $script_version = '3.0.0-pre2';
 
