@@ -5,7 +5,7 @@ Plugin URI: http://status301.net/wordpress-plugins/coolclock/
 Description: Add an analog clock to your sidebar.
 Text Domain: coolclock
 Domain Path: languages
-Version: 2.9.5
+Version: 2.9.5dev2
 Author: RavanH
 Author URI: http://status301.net/
 */
@@ -15,7 +15,7 @@ Author URI: http://status301.net/
  */
 class CoolClock {
 
-	static $plugin_version = '2.9.5';
+	static $plugin_version = '2.9.5dev2';
 
 	static $script_version = '3.0.0-pre2';
 
@@ -83,13 +83,13 @@ class CoolClock {
 
 	// FUNCTIONS //
 
-	static function widget( $args, $instance ) {
+	static function widget( $args, $instance, $number ) {
 
 		$skin = ( isset( $instance['skin'] ) ) 
 			? $instance['skin'] : 'swissRail';
 
 		// add custom skin parameters to the plugin skins array
-		if ( 'custom_'.$this->number == $skin )
+		if ( 'custom_'.$number == $skin )
 			self::$advanced_skins_config[$skin] = $instance['custom_skin'];
 
 		// set footer script flags
@@ -421,6 +421,7 @@ class CoolClock_Widget extends WP_Widget {
 
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
+		$number = $this->number;
 
 		// Print output
 		echo $before_widget;
@@ -428,7 +429,7 @@ class CoolClock_Widget extends WP_Widget {
 		if ( $title )
 			echo $before_title . $title . $after_title;
 
-		echo CoolClock::widget( $args, $instance );
+		echo CoolClock::widget( $args, $instance, $number );
 
 		echo $after_widget;
 
