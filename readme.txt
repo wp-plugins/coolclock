@@ -34,8 +34,9 @@ Pro features come with the [CoolClock - Pro extension](http://status301.net/word
 
 = Translators =
 
-- **Dutch** * Author: [R.A. van Hagen](http://status301.net/nl/) (version 2.0)
-- **French** * Author: [R.A. van Hagen](http://phareo.eu) (version 2.0)
+- **Dutch** * R.A. van Hagen http://status301.net/ (version 2.9)
+- **French** * R.A. van Hagen http://status301.net/ (version 2.0)
+- **Serbian** * Borisa Djuraskovic - WebHostingHub http://www.webhostinghub.com/ (version 2.9)
 
 Please [contact me](http://status301.net/contact-en/) to submit your translation and get mentioned here :)
 
