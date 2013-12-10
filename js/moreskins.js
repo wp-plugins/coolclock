@@ -208,10 +208,10 @@ CoolClock.config.skins = {
 		minuteHand:       { lineWidth: 3, startAt: -20, endAt: 80, color: "#a9bf04", alpha: .9 },
 		secondHand:       { lineWidth: 2, startAt: 70, endAt: 94, color: "#d93d04", alpha: .75 },
 		secondDecoration: { lineWidth: 1, startAt: 70, radius: 3, fillColor: "#d93d04", color: "#d93d04", alpha: .75 }
-	}
+	},
 
 	// By MrCarlLister
-	lister: {
+	mister: {
 		largeIndicator:   { lineWidth: 10, radius:5,  startAt: 78, endAt: 98, color: "#76777b", alpha: 1 },
 		hourHand:         { lineWidth: 7, startAt: 10, endAt: 47, color: "#76777b", alpha: 1 },
 		minuteHand:       { lineWidth: 5, startAt:10, endAt: 65, color: "#76777b", alpha: 1 },

@@ -45,10 +45,6 @@ CoolClock.config = {
 	renderRadius: 100,
 	defaultSkin: "chunkySwiss",
 	defaultFont: "15px sans-serif",
-	// Should be in skin probably...
-	// (TODO: allow skinning of digital display)
-	showSecs: true,
-	showAmPm: true,
 
 	skins:	{
 		// There are more skins in moreskins.js
@@ -119,6 +115,8 @@ CoolClock.prototype = {
 		this.showSecondHand = typeof options.showSecondHand == "boolean" ? options.showSecondHand : true;
 		this.gmtOffset      = (options.gmtOffset != null && options.gmtOffset != '') ? parseFloat(options.gmtOffset) : null;
 		this.showDigital    = typeof options.showDigital == "boolean" ? options.showDigital : false;
+		this.showDigital24  = typeof options.showDigital24 == "boolean" ? options.showDigital24 : false;
+		this.showDate       = typeof options.showDate == "boolean" ? options.showDate : false;
 		this.logClock       = typeof options.logClock == "boolean" ? options.logClock : false;
 		this.logClockRev    = typeof options.logClock == "boolean" ? options.logClockRev : false;
 
@@ -220,13 +218,12 @@ CoolClock.prototype = {
 		}
 	},
 
-	timeText: function(hour,min,sec) {
-		var c = CoolClock.config;
+	timeText: function(hour,min,sec,showAmPm,showSecs) {
 		return '' +
-			(c.showAmPm ? ((hour%12)==0 ? 12 : (hour%12)) : hour) + ':' +
+			(showAmPm ? ((hour%12)==0 ? 12 : (hour%12)) : hour) + ':' +
 			this.lpad2(min) +
-			(c.showSecs ? ':' + this.lpad2(sec) : '') +
-			(c.showAmPm ? (hour < 12 ? ' am' : ' pm') : '')
+			(showSecs ? ':' + this.lpad2(sec) : '') +
+			(showAmPm ? (hour < 12 ? ' am' : ' pm') : '')
 		;
 	},
 
@@ -256,7 +253,7 @@ CoolClock.prototype = {
 		this.ctx.restore();
 	},
 
-	render: function(hour,min,sec) {
+	render: function(hour,min,sec,date) {
 		// Get the skin
 		var skin = this.getSkin();
 
@@ -273,10 +270,14 @@ CoolClock.prototype = {
 			!(i%5) && skin.largeIndicator && this.radialLineAtAngle(this.tickAngle(i),skin.largeIndicator);
 		}
 
-		// Write the time
-		if (this.showDigital) {
+		// Write the time and or date
+		if (this.showDigital || this.showDigital24 || this.showDate) {
+			var text;
+			if (this.showDigital) text = this.timeText(hour,min,sec,true,false);
+			else if (this.showDigital24) text = this.timeText(hour,min,sec,false,true);
+			else text = date;
 			this.drawTextAt(
-				this.timeText(hour,min,sec),
+				text,
 				this.renderRadius,
 				this.renderRadius+this.renderRadius/2
 			);
@@ -319,11 +320,11 @@ CoolClock.prototype = {
 		if (this.gmtOffset != null) {
 			// Use GMT + gmtOffset
 			var offsetNow = new Date(now.valueOf() + (this.gmtOffset * 1000 * 60 * 60));
-			this.render(offsetNow.getUTCHours(),offsetNow.getUTCMinutes(),offsetNow.getUTCSeconds());
+			this.render(offsetNow.getUTCHours(),offsetNow.getUTCMinutes(),offsetNow.getUTCSeconds(),offsetNow.toLocaleDateString());
 		}
 		else {
 			// Use local time
-			this.render(now.getHours(),now.getMinutes(),now.getSeconds());
+			this.render(now.getHours(),now.getMinutes(),now.getSeconds(),now.toLocaleDateString());
 		}
 	},
 
@@ -370,6 +371,8 @@ CoolClock.findAndCreateClocks = function() {
 				showSecondHand: fields[3]!='noSeconds',
 				gmtOffset:      fields[4],
 				showDigital:    fields[5]=='showDigital',
+				showDigital24:  fields[5]=='showDigital24',
+				showDate:       fields[5]=='showDate',
 				logClock:       fields[6]=='logClock',
 				logClockRev:    fields[6]=='logClockRev'
 			});

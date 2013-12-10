@@ -3,8 +3,8 @@ Contributors: RavanH
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravanhagen%40gmail%2ecom&item_name=CoolClock%20for%20WordPress&item_number=1%2e3%2e4%2e9&no_shipping=0&tax=0&charset=UTF%2d8&currency_code=EUR
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode, logarithmic clock
 Requires at least: 2.9
-Tested up to: 3.7
-Stable tag: 2.9.5
+Tested up to: 3.8
+Stable tag: 2.9.6
 
 Show an analog clock on your WordPress site sidebar or in post and page content.
 
@@ -16,7 +16,7 @@ This plugin integrates [CoolClock - The Javascript Analog Clock](http://randomib
 
 - Can be added via a widget, shortcode or theme function
 - No flash, meaning compatible with pads and most other javascript enabled mobile devices
-- 21 different skins to choose from or
+- 22 different skins to choose from or
 - Custom skin option to create your own skin style
 - Linear or logarithmic time scale
 
@@ -24,19 +24,19 @@ See [the FAQ's](http://wordpress.org/extend/plugins/coolclock/faq/) to learn how
 
 = Pro features =
 
-- Custom background image and/or
-- Background color 
-- Border radius
-- One extra skin for use with background image
-- Advanced positioning options
+- Show date or 24h digital time
+- Background image or color
+- Border radius (rounded corners for background))
+- Advanced positioning options (relative to background)
+- One extra clean skin for use with background image
 
 Pro features come with the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/).
 
 = Translators =
 
-- **Dutch** * R.A. van Hagen http://status301.net/ (version 2.9)
-- **French** * R.A. van Hagen http://status301.net/ (version 2.0)
-- **Serbian** * Borisa Djuraskovic - WebHostingHub http://www.webhostinghub.com/ (version 2.9)
+- **Dutch** * R.A. van Hagen http://status301.net/ (version 2.9.5)
+- **French** * R.A. van Hagen http://status301.net/ (version 2.9.5)
+- **Serbian** * Borisa Djuraskovic - WebHostingHub http://www.webhostinghub.com/ (version 2.9.4)
 
 Please [contact me](http://status301.net/contact-en/) to submit your translation and get mentioned here :)
 
@@ -183,10 +183,14 @@ Please report any other issues on the [Support page](http://wordpress.org/suppor
 
 == Upgrade Notice ==
 
-= 2.9.5 =
+= 2.9.6 =
 Bugfixes and PHP 5.4+ compatibility
 
 == Changelog ==
+
+= 2.9.6 =
+* BUGFIX: Non-static method should not be called statically
+* BUGFIX: Undefined index
 
 = 2.9.5 =
 * BUGFIX: PHP 5.4 Using $this when not in object context
@@ -194,12 +198,12 @@ Bugfixes and PHP 5.4+ compatibility
 * Skin watermelon alpha fix
 
 = 2.9.4 =
-* FIX: undefined index in widget form
-* NEW: Use Globaltick branch script version 3.0.0-pre
-* NEW: Clock skin shared by user MrCarlLister
+* New clock skin shared by user MrCarlLister
+* Use Globaltick branch script version 3.0.0-pre
+* BUGFIX: undefined index in widget form
 
 = 2.9.2 =
-* FIX: Thread between tip of the second hand and 3 o'clock in IE
+* BUGFIX: Thread between tip of the second hand and 3 o'clock in IE
 * Shortcode filter
 
 = 2.9 =
