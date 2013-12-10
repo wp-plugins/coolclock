@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravan
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode, logarithmic clock
 Requires at least: 2.9
 Tested up to: 3.8
-Stable tag: 2.9.6
+Stable tag: 2.9.5
 
 Show an analog clock on your WordPress site sidebar or in post and page content.
 
@@ -79,7 +79,7 @@ First of all, you can pick a preset skin. There are 21 skins made by other users
 - Custom skin parameters - see question below;
 - Radius - changes the clock size;
 - Hide second hand;
-- Show digital time;
+- Show digital time or date;
 - GMT Offset - use this if you want one or more clocks to show the time for other timezones;
 - Scale - linear is our standard clock scale, the other two show a logarithmic time scale;
 - Align - left, center or right;
@@ -132,7 +132,7 @@ Yes, there is a shortcode available. Start with a default clock by pasting `[coo
 
 The following parameters are available:
 
-- **skin** -- must be one of these: 'swissRail' (default skin), 'chunkySwiss', 'chunkySwissOnBlack', 'fancy', 'machine', 'simonbaird_com', 'classic', 'modern', 'simple', 'securephp', 'Tes2', 'Lev', 'Sand', 'Sun', 'Tor', 'Cold', 'Babosa', 'Tumb', 'Stone', 'Disc' or 'watermelon'. If the Pro extension is activated, there is also 'minimal' available. Please note that these names are _case sensitive_.
+- **skin** -- must be one of these: 'swissRail' (default skin), 'chunkySwiss', 'chunkySwissOnBlack', 'fancy', 'machine', 'simonbaird_com', 'classic', 'modern', 'simple', 'securephp', 'Tes2', 'Lev', 'Sand', 'Sun', 'Tor', 'Cold', 'Babosa', 'Tumb', 'Stone', 'Disc', 'watermelon' or 'mister'. If the Pro extension is activated, there is also 'minimal' available. Please note that these names are _case sensitive_.
 - **radius** -- a number to define the clock radius. Do not add 'px' or any other measure descriptor.
 - **noseconds** -- set to true (or 1) to hide the second hand
 - **gmtoffset** -- a number to define a timezone relative the Greenwhich Mean Time. Do not set this parameter to default to local time.
