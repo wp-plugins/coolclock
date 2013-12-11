@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravan
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode, logarithmic clock
 Requires at least: 2.9
 Tested up to: 3.8
-Stable tag: 2.9.5
+Stable tag: 2.9.6
 
 Show an analog clock on your WordPress site sidebar or in post and page content.
 
@@ -136,12 +136,12 @@ The following parameters are available:
 - **radius** -- a number to define the clock radius. Do not add 'px' or any other measure descriptor.
 - **noseconds** -- set to true (or 1) to hide the second hand
 - **gmtoffset** -- a number to define a timezone relative the Greenwhich Mean Time. Do not set this parameter to default to local time.
-- **showdigital** -- set to true (or 1) to show the time in digital format too
+- **showdigital** -- set to 'digital12' to show the time in 12h digital format (with am/pm) too
 - **scale** -- must be one of these: 'linear' (default scale), 'logClock' or  'logClockRev'. Linear is our normal clock scale, the other two show a logarithmic time scale
 - **subtext** -- optional text, centered below the clock
 - **align** -- sets floating of the clock: 'left', 'right' or 'center'
 
-Example: `[coolclock skin="chunkySwissOnBlack" radius="140" showdigital=true align="left"]`
+Example: `[coolclock skin="chunkySwissOnBlack" radius="140" showdigital=digital12 align="left"]`
 
 Then there are extra options availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/) which allow for more customisation:
 
@@ -184,18 +184,18 @@ Please report any other issues on the [Support page](http://wordpress.org/suppor
 == Upgrade Notice ==
 
 = 2.9.6 =
-Bugfixes and PHP 5.4+ compatibility
+Bugfix release
 
 == Changelog ==
 
 = 2.9.6 =
+* Skin watermelon alpha fix
 * BUGFIX: Non-static method should not be called statically
 * BUGFIX: Undefined index
 
 = 2.9.5 =
 * BUGFIX: PHP 5.4 Using $this when not in object context
 * BUGFIX: Non-static method should not be called statically
-* Skin watermelon alpha fix
 
 = 2.9.4 =
 * New clock skin shared by user MrCarlLister

@@ -32,13 +32,13 @@ class CoolClock {
 			'radius' => 100,
 			'noseconds' => false,	// Hide seconds
 			'gmtoffset' => '',		// GMT offset
-			'show' => '',			// Show digital time or date
+			'showdigital' => '',			// Show digital time or date
 			'scale' => 'linear'		// Define type of clock linear/logarithmic/log reversed
 		);
 
-	static $show_options = array (
+	static $showdigital_options = array (
 				'' => '',
-				'digital' => 'showDigital'
+				'digital12' => 'showDigital'
 			);
 
 	static $advanced;
@@ -106,15 +106,12 @@ class CoolClock {
 		if ( isset( self::$advanced_skins_config[$skin] ) )
 			self::$add_customskins = true;
 			
-		if ( !isset($instance['show']) && !empty($instance['showdigital']) )
-			$instance['show'] = 'digital'; // backward compat
-
 		$output = self::canvas( array(
 					'skin' => $skin,
 					'radius' => $instance['radius'],
 					'noseconds' => $instance['noseconds'],
 					'gmtoffset' => $instance['gmtoffset'],
-					'show' => $instance['show'],
+					'showdigital' => $instance['showdigital'],
 					'scale' => $instance['scale'],
 					'align' => $instance['align'],
 					'subtext' => apply_filters('widget_text', $instance['subtext'], $instance)
@@ -132,7 +129,7 @@ class CoolClock {
 		$instance['radius'] = ( (int) $new_instance['radius'] < 5 ) ? 5 : (int) $new_instance['radius'];
 		$instance['noseconds'] = (bool) $new_instance['noseconds'];
 		$instance['gmtoffset'] = ( $new_instance['gmtoffset'] == '' ) ? '' : (float) $new_instance['gmtoffset'];
-		$instance['show'] = strip_tags(  $new_instance['show'] );
+		$instance['showdigital'] = strip_tags( $new_instance['showdigital'] );
 		$instance['scale'] = strip_tags( $new_instance['scale'] );
 		$instance['align'] = strip_tags( $new_instance['align'] );
 
@@ -194,9 +191,9 @@ class CoolClock {
 		    	);
 		
 		// Translatable show options go here
-		$show_names = array (
+		$showdigital_names = array (
 					'' => __('none','coolclock'),
-		    		'digital' => __('time (am/pm)','coolclock'),
+		    		'digital12' => __('time (am/pm)','coolclock'),
 		    		'digital24' => __('time (24h)','coolclock'),
 		    		'date' => __('date','coolclock')
 		    	);
@@ -233,15 +230,15 @@ class CoolClock {
 		$output .= ' <label for="' . $obj->get_field_id('noseconds') . '">' .  __('Hide second hand', 'coolclock') . '</label></p>';
 
 		// Show digital
-		if ( !isset($instance['show']) && !empty($instance['showdigital']) )
-			$instance['show'] = 'digital'; // backward compat
+		if ( $instance['showdigital'] === true || $instance['showdigital'] == 'true' || $instance['showdigital'] == '1' )
+			$instance['showdigital'] = 'digital12'; // backward compat
 		
-		$output .= '<p><label for="' . $obj->get_field_id('show') . '">' . __('Show digital:', 'coolclock') . '</label> ';
-		$output .= '<select class="select" id="' . $obj->get_field_id('show') . '" name="' . $obj->get_field_name('show') . '">';
-		foreach (self::$show_options as $key => $value) {
+		$output .= '<p><label for="' . $obj->get_field_id('showdigital') . '">' . __('Show digital:', 'coolclock') . '</label> ';
+		$output .= '<select class="select" id="' . $obj->get_field_id('showdigital') . '" name="' . $obj->get_field_name('showdigital') . '">';
+		foreach (self::$showdigital_options as $key => $value) {
 			$output .= '<option value="' . $key . '"';
-			$output .= ( $key == $instance['show'] ) ? ' selected="selected">' : '>';
-			$output .= ( isset($show_names[$key]) ) ? $show_names[$key] : $value;
+			$output .= ( $key == $instance['showdigital'] ) ? ' selected="selected">' : '>';
+			$output .= ( isset($showdigital_names[$key]) ) ? $showdigital_names[$key] : $value;
 			$output .= '</option>';
 		} unset($value);
 		$output .= '</select></p>';
@@ -367,11 +364,11 @@ class CoolClock {
 		$output .= $gmtoffset;
 		
 		// show digital
-		if ( !isset($show) && !empty($showdigital) )
-			$show = 'digital'; // backward compat;
+		if ( $showdigital === true || $showdigital == 'true' || $showdigital == '1' )
+			$showdigital = 'digital12'; // backward compat
 
-		if ( isset(self::$show_options[$show]) )
-			$output .= ':'.self::$show_options[$show];
+		if ( isset(self::$showdigital_options[$showdigital]) )
+			$output .= ':'.self::$showdigital_options[$showdigital];
 		else
 			$output .= ':';
 
