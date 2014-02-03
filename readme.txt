@@ -153,14 +153,14 @@ Then there are extra options availabe in the [CoolClock - Pro extension](http://
 - **background_repeat** - repeat, repeat-x, repeat-y, no-repeat (default: no-repeat)
 - **background_border_radius** - optional rounded corners value, higher is rounder
 
-Example: `&#91;coolclock skin="minimal" radius="63" align="left" background_image="http://i35.tinypic.com/990wtx.png"]`
+Example: **[coolclock skin="minimal" radius="63" align="left" background_image="http://i35.tinypic.com/990wtx.png"]**
 
 
 = I'm building my own theme. Is there a theme function available? =
 
 Yes, you can use a built-in WordPress function that parses a shortcode. To place the same clock as in the shortcode example above, anywhere in your theme, use this:
 
-`<?php echo do_shortcode('&#91;coolclock skin="chunkySwiss" radius="140" showdigital=true align="left"]'); ?>`
+`<?php echo do_shortcode('[ coolclock skin="chunkySwiss" radius="140" showdigital=true align="left" ]'); ?>`
 
 
 == Known Issues ==
