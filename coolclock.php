@@ -32,7 +32,7 @@ class CoolClock {
 			'radius' => 100,
 			'noseconds' => false,	// Hide seconds
 			'gmtoffset' => '',		// GMT offset
-			'showdigital' => '',			// Show digital time or date
+			'showdigital' => '',	// Show digital time or date
 			'scale' => 'linear'		// Define type of clock linear/logarithmic/log reversed
 		);
 
@@ -230,7 +230,7 @@ class CoolClock {
 		$output .= ' <label for="' . $obj->get_field_id('noseconds') . '">' .  __('Hide second hand', 'coolclock') . '</label></p>';
 
 		// Show digital
-		if ( $instance['showdigital'] === true || $instance['showdigital'] == 'true' || $instance['showdigital'] == '1' )
+		if ( $instance['showdigital'] == 'true' || $instance['showdigital'] == '1' )
 			$instance['showdigital'] = 'digital12'; // backward compat
 		
 		$output .= '<p><label for="' . $obj->get_field_id('showdigital') . '">' . __('Show digital:', 'coolclock') . '</label> ';
@@ -364,7 +364,7 @@ class CoolClock {
 		$output .= $gmtoffset;
 		
 		// show digital
-		if ( $showdigital === true || $showdigital == 'true' || $showdigital == '1' )
+		if ( $showdigital == 'true' || $showdigital == '1' )
 			$showdigital = 'digital12'; // backward compat
 
 		if ( isset(self::$showdigital_options[$showdigital]) )

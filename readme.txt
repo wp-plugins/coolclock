@@ -128,7 +128,7 @@ Thanks for sharing! :)
 
 = Can I insert a clock in posts or pages? =
 
-Yes, there is a shortcode available. Start with a default clock by pasting `[coolclock]` into a post.
+Yes, there is a shortcode available. Start with a default clock by pasting **[****coolclock]** into a post.
 
 The following parameters are available:
 
@@ -141,7 +141,7 @@ The following parameters are available:
 - **subtext** -- optional text, centered below the clock
 - **align** -- sets floating of the clock: 'left', 'right' or 'center'
 
-Example: `[coolclock skin="chunkySwissOnBlack" radius="140" showdigital=digital12 align="left"]`
+Example: **[****coolclock skin="chunkySwissOnBlack" radius="140" showdigital=digital12 align="left"]**
 
 Then there are extra options availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/) which allow for more customisation:
 
@@ -160,9 +160,7 @@ Example: `[coolclock skin="minimal" radius="63" align="left" background_image="h
 
 Yes, you can use a built-in WordPress function that parses a shortcode. To place the same clock as in the shortcode example above, anywhere in your theme, use this:
 
-`
-<?php echo do_shortcode('[coolclock skin="chunkySwiss" radius="140" showdigital=true align="left"]'); ?>
-`
+**<?php echo do_shortcode('[****coolclock skin="chunkySwiss" radius="140" showdigital=true align="left"]'); ?>**
 
 
 == Known Issues ==
