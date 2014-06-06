@@ -130,7 +130,11 @@ Thanks for sharing! :)
 
 = Can I insert a clock in posts or pages? =
 
+<<<<<<< .mine
+Yes, there is a shortcode available. Start with a default clock by pasting **[coolclock** **/]** into a post.
+=======
 Yes, there is a shortcode available. Start with a default clock by pasting [**coolclock /**] into a post.
+>>>>>>> .r927983
 
 The following parameters are available:
 
