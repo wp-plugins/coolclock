@@ -130,7 +130,7 @@ Thanks for sharing! :)
 
 = Can I insert a clock in posts or pages? =
 
-Yes, there is a shortcode available. Start with a default clock by pasting **[[coolclock /]]** into a post.
+Yes, there is a shortcode available. Start with a default clock by pasting [**coolclock /**] into a post.
 
 The following parameters are available:
 
@@ -143,7 +143,7 @@ The following parameters are available:
 - **subtext** -- optional text, centered below the clock
 - **align** -- sets floating of the clock: 'left', 'right' or 'center'
 
-Example: **[[coolclock skin="chunkySwissOnBlack" radius="140" showdigital=digital12 align="left" /]]**
+Example: [**coolclock skin="chunkySwissOnBlack" radius="140" showdigital=digital12 align="left" /**]
 
 Then there are extra parameters and options availabe in the [CoolClock - Advanced extension](http://status301.net/coolclock-advanced/) which allow for more customisation:
 
@@ -156,7 +156,7 @@ Then there are extra parameters and options availabe in the [CoolClock - Advance
 - **background_repeat** - background repetition options "repeat", "repeat-x", "repeat-y", "no-repeat" (default: "no-repeat")
 - **background_border_radius** - optional rounded corners value, higher is rounder
 
-Example: **[[coolclock skin="minimal" radius="63" align="left" background_image="http://i35.tinypic.com/990wtx.png" /]]**
+Example: [**coolclock skin="minimal" radius="63" align="left" background_image="http://i35.tinypic.com/990wtx.png" /**]
 
 Custom skins can also be used in shortcode with the Advanced extension. See more on 
 
