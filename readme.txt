@@ -3,8 +3,8 @@ Contributors: RavanH
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravanhagen%40gmail%2ecom&item_name=CoolClock%20for%20WordPress&item_number=1%2e3%2e4%2e9&no_shipping=0&tax=0&charset=UTF%2d8&currency_code=EUR
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode, logarithmic clock
 Requires at least: 2.9
-Tested up to: 3.8
-Stable tag: 2.9.6
+Tested up to: 3.9
+Stable tag: 2.9.7
 
 Show an analog clock on your WordPress site sidebar or in post and page content.
 
@@ -20,7 +20,7 @@ This plugin integrates [CoolClock - The Javascript Analog Clock](http://randomib
 - Custom skin option to create your own skin style
 - Linear or logarithmic time scale
 
-See [the FAQ's](http://wordpress.org/extend/plugins/coolclock/faq/) to learn how to configure your own skin settings.
+Read more on http://status301.net/wordpress-plugins/coolclock/ or see [the FAQ's](http://wordpress.org/extend/plugins/coolclock/faq/) to learn how to configure your own skin settings.
 
 = Pro features =
 
@@ -28,9 +28,11 @@ See [the FAQ's](http://wordpress.org/extend/plugins/coolclock/faq/) to learn how
 - Background image or color
 - Border radius (rounded corners for background))
 - Advanced positioning options (relative to background)
+- Advanced shortcode parameters (including background image and custom skin)
 - One extra clean skin for use with background image
+- Support on the [CoolClock Pro forum](http://status301.net/support/forum/coolclock-pro/)
 
-Pro features come with the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/).
+Pro features come with the [CoolClock - Advanced extension](http://status301.net/coolclock-advanced/).
 
 = Translators =
 
@@ -85,7 +87,7 @@ First of all, you can pick a preset skin. There are 21 skins made by other users
 - Align - left, center or right;
 - Subtext - optional text, centered below the clock.
 
-Then there are extra options availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/) which allow for more customisation:
+Then there are extra options availabe in the [CoolClock - Advanced extension](http://status301.net/coolclock-advanced/) which allow for more customisation:
 
 - Background image - define the full URL or path to an image to serve as background;
 - Repeat image;
@@ -94,7 +96,7 @@ Then there are extra options availabe in the [CoolClock - Pro extension](http://
 - Background color - define a color value in hex or rgb(a) format, or a css color name;
 - Border radius - optional rounded corners, higher is rounder;
 - Clock position relative to background - here you can position the clock relative to top and left border of the wrapping div (as defined above) that holds the background image.
-
+- Custom skin parameters for shortcode
 
 = How can I create a custom skin? =
 
@@ -103,13 +105,13 @@ Here are your first steps into the wonderous world of CoolClock skins ;)
 **Step 1.** Copy the following code to a simple unformatted text document (.txt) on your computer.
 
 `
-outerBorder: { lineWidth: 1, radius:95, color: "black", alpha: 1 },
-smallIndicator: { lineWidth: 2, startAt: 89, endAt: 93, color: "black", alpha: 1 },
-largeIndicator: { lineWidth: 4, startAt: 80, endAt: 93, color: "black", alpha: 1 },
-hourHand: { lineWidth: 8, startAt: -15, endAt: 50, color: "black", alpha: 1 },
-minuteHand: { lineWidth: 7, startAt: -15, endAt: 75, color: "black", alpha: 1 },
-secondHand: { lineWidth: 1, startAt: -20, endAt: 85, color: "red", alpha: 1 },
-secondDecoration: { lineWidth: 1, startAt: 70, radius: 4, fillColor: "red", color: "red", alpha: 1 }
+outerBorder: { lineWidth: 1, radius:95, color: 'black', alpha: 1 },
+smallIndicator: { lineWidth: 2, startAt: 89, endAt: 93, color: 'black', alpha: 1 },
+largeIndicator: { lineWidth: 4, startAt: 80, endAt: 93, color: 'black', alpha: 1 },
+hourHand: { lineWidth: 8, startAt: -15, endAt: 50, color: 'black', alpha: 1 },
+minuteHand: { lineWidth: 7, startAt: -15, endAt: 75, color: 'black', alpha: 1 },
+secondHand: { lineWidth: 1, startAt: -20, endAt: 85, color: 'red', alpha: 1 },
+secondDecoration: { lineWidth: 1, startAt: 70, radius: 4, fillColor: 'red', color: 'red', alpha: 1 }
 `
 
 **Step 2.** These parameters are the ones from the swissRail skin. Now go and change some parameter values like lineWidth or start/endAt points. The numbers refer to a percentage of the radius, so startAt: 0, endAt: 50 means a line from the center to 50% of the way to the edge. Alpha means the transparency of the element where alpha: 1 means solid. For example alpha: 0.5 means 50% transparent.
@@ -132,7 +134,7 @@ Yes, there is a shortcode available. Start with a default clock by pasting **[co
 
 The following parameters are available:
 
-- **skin** -- must be one of these: 'swissRail' (default skin), 'chunkySwiss', 'chunkySwissOnBlack', 'fancy', 'machine', 'simonbaird_com', 'classic', 'modern', 'simple', 'securephp', 'Tes2', 'Lev', 'Sand', 'Sun', 'Tor', 'Cold', 'Babosa', 'Tumb', 'Stone', 'Disc', 'watermelon' or 'mister'. If the Pro extension is activated, there is also 'minimal' available. Please note that these names are _case sensitive_.
+- **skin** -- must be one of these: 'swissRail' (default skin), 'chunkySwiss', 'chunkySwissOnBlack', 'fancy', 'machine', 'simonbaird_com', 'classic', 'modern', 'simple', 'securephp', 'Tes2', 'Lev', 'Sand', 'Sun', 'Tor', 'Cold', 'Babosa', 'Tumb', 'Stone', 'Disc', 'watermelon' or 'mister'. If the Advanced extension is activated, there is also 'minimal' available. Please note that these names are _case sensitive_.
 - **radius** -- a number to define the clock radius. Do not add 'px' or any other measure descriptor.
 - **noseconds** -- set to true (or 1) to hide the second hand
 - **gmtoffset** -- a number to define a timezone relative the Greenwhich Mean Time. Do not set this parameter to default to local time.
@@ -143,18 +145,20 @@ The following parameters are available:
 
 Example: **[coolclock skin="chunkySwissOnBlack" radius="140" showdigital=digital12 align="left"]**
 
-Then there are extra options availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/) which allow for more customisation:
+Then there are extra parameters and options availabe in the [CoolClock - Advanced extension](http://status301.net/coolclock-advanced/) which allow for more customisation:
 
+- **showdigital** - extended with ‘digital24′ and ‘date’ options
 - **background_image** - define full URL or path to an image to serve as background
-- **background_height** - give a height in pixels (default: auto = clock plus subtext height)
+- **background_height** - give a height in pixels (default: clock plus subtext height)
 - **background_width** - give a width in pixels  (default: clock width)
 - **background_color** - define a CSS color value in hex, rgb(a) format, or color name
-- **background_position** - CSS positioning like 'left top', 'bottom', '10% 70%' or '10px 20px' (default: 'left top')
-- **background_repeat** - repeat, repeat-x, repeat-y, no-repeat (default: no-repeat)
+- **background_position** - CSS positioning like "left top", "bottom", "10% 70%" or "10px 20px" (default: "left top")
+- **background_repeat** - background repetition options "repeat", "repeat-x", "repeat-y", "no-repeat" (default: "no-repeat")
 - **background_border_radius** - optional rounded corners value, higher is rounder
 
 Example: **[coolclock skin="minimal" radius="63" align="left" background_image="http://i35.tinypic.com/990wtx.png"]**
 
+Custom skins can also be used in shortcode with the Advanced extension. See more on 
 
 = I'm building my own theme. Is there a theme function available? =
 
@@ -174,17 +178,21 @@ Please report any other issues on the [Support page](http://wordpress.org/suppor
 
 == Screenshots ==
 
-1. Example analog clock in sidebar. The background logo is added with the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/).
+1. Example analog clock in sidebar. The background logo is added with the [CoolClock - Advanced extension](http://status301.net/coolclock-advanced/).
 
-2. Widget settings. The background options are availabe in the [CoolClock - Pro extension](http://status301.net/wordpress-plugins/coolclock-pro/).
+2. Widget settings. The background options are availabe in the [CoolClock - Advanced extension](http://status301.net/coolclock-advanced/).
 
 
 == Upgrade Notice ==
 
-= 2.9.6 =
+= 2.9.7 =
 Bugfix release
 
 == Changelog ==
+
+= 2.9.7 =
+* Prepare custom skin for shortcode in advanced extension
+* BUGFIX: disable wptexturize for shortcode content
 
 = 2.9.6 =
 * Skin watermelon alpha fix
