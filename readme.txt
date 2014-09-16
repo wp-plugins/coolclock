@@ -39,7 +39,7 @@ Pro features come with the [CoolClock - Advanced extension](http://status301.net
 - **Dutch** * R.A. van Hagen http://status301.net/ (version 2.9.5)
 - **French** * R.A. van Hagen http://status301.net/ (version 2.9.5)
 - **Serbian** * Borisa Djuraskovic - WebHostingHub http://www.webhostinghub.com/ (version 2.9.4)
-- **Russian** * Наталия Завьялова
+- **Russian** * Наталия Завьялова - http://time-impressions.ru (version 2.9.8)
 
 Please [contact me](http://status301.net/contact-en/) to submit your translation and get mentioned here :)
 
