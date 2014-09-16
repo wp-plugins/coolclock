@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravan
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode, logarithmic clock
 Requires at least: 2.9
 Tested up to: 4.0
-Stable tag: 2.9.7
+Stable tag: 2.9.8
 
 Show an analog clock on your WordPress site sidebar or in post and page content.
 
@@ -39,6 +39,7 @@ Pro features come with the [CoolClock - Advanced extension](http://status301.net
 - **Dutch** * R.A. van Hagen http://status301.net/ (version 2.9.5)
 - **French** * R.A. van Hagen http://status301.net/ (version 2.9.5)
 - **Serbian** * Borisa Djuraskovic - WebHostingHub http://www.webhostinghub.com/ (version 2.9.4)
+- **Russian** * Наталия Завьялова
 
 Please [contact me](http://status301.net/contact-en/) to submit your translation and get mentioned here :)
 
@@ -185,10 +186,14 @@ Please report any other issues on the [Support page](http://wordpress.org/suppor
 
 == Upgrade Notice ==
 
-= 2.9.7 =
-Bugfix release
+= 2.9.8 =
+Russian translation by Natalia Zavyalova
 
 == Changelog ==
+
+= 2.9.8 =
+* Translation string fixes
+* Russian translation by Natalia Zavyalova
 
 = 2.9.7 =
 * Prepare custom skin for shortcode in advanced extension
