@@ -388,12 +388,12 @@ class CoolClock {
 		$output .= '</select></p>';
 
 		// Subtext
-		$output .= '<p><label for="' . $obj->get_field_id('subtext') . '">' . __('Subtext:') . '</label> ';
+		$output .= '<p><label for="' . $obj->get_field_id('subtext') . '">' . __('Subtext:', 'coolclock') . '</label> ';
 		$output .= '<input class="widefat" id="' . $obj->get_field_id('subtext') . '" name="' . $obj->get_field_name('subtext') . '" type="text" value="' . $subtext . '" /> ' . __('(basic HTML allowed)', 'coolclock') . '</p>';
 
 		// Advanced filter
 		if ( class_exists( 'CoolClockAdvanced' ) ) // add an upgrade notice
-			$advanced_form = '<p><strong>' . __('Background') . '</strong></p><p><strong>' . __('Pease upgrade the CoolClock - Advanced extension.', 'coolclock') . '</strong> ' . __('You can download the new version using the remaining download credits and the link that you have received in the confirmation email after your first purchase.', 'coolclock') . ' <a href="http://status301.net/contact-en/">' . __('If you do not have that email anymore, please contact us.', 'coolclock') . '</a></p>' . '<p><strong>' . __('Do NOT resave widget settings before upgrading the Advanced extension or your advanced settings will be lost!', 'coolclock') . '</strong>';
+			$advanced_form = '<p><strong>' . __('Background') . '</strong></p><p><strong>' . __('Please upgrade the CoolClock - Advanced extension.', 'coolclock') . '</strong> ' . __('You can download the new version using the remaining download credits and the link that you have received in the confirmation email after your first purchase.', 'coolclock') . ' <a href="http://status301.net/contact-en/">' . __('If you do not have that email anymore, please contact us.', 'coolclock') . '</a></p>' . '<p><strong>' . __('Do NOT resave widget settings before upgrading the Advanced extension or your advanced settings will be lost!', 'coolclock') . '</strong>';
 		else
 	    	$advanced_form = '<p><strong>' . __('Background') . '</strong></p><p><a href="http://status301.net/wordpress-plugins/coolclock-advanced/">' . __('Available in the Advanced extension &raquo;', 'coolclock') . '</a></p>';
 		
