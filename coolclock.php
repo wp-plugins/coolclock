@@ -5,7 +5,7 @@ Plugin URI: http://status301.net/wordpress-plugins/coolclock/
 Description: Add an analog clock to your sidebar.
 Text Domain: coolclock
 Domain Path: languages
-Version: 2.9.8
+Version: 3.0
 Author: RavanH
 Author URI: http://status301.net/
 */
@@ -15,9 +15,9 @@ Author URI: http://status301.net/
  */
 class CoolClock {
 
-	static $plugin_version = '2.9.8';
+	static $plugin_version = '3.0';
 
-	static $script_version = '3.0.0-pre3';
+	static $script_version = '3.0.0';
 
 	static $add_script;
 
@@ -83,7 +83,7 @@ class CoolClock {
 	    		'logClock' => 'logClock',
 	    		'logClockRev' => 'logClockRev'
 	    	);
-
+	    	
 	/** 
 	 * MAIN 
 	 */
@@ -96,7 +96,7 @@ class CoolClock {
 		
 		// align class ans style
 		$output .= ( $align ) ? ' class="align' . $align . '"' : '';
-		$output .= ' style="width:' . 2 * $radius . 'px;height:auto">';
+		$output .= ' style="width:' . 2 * $radius . 'px;max-width:100%;height:auto">';
 		// canvas parameters
 		$output .= '<canvas class="CoolClock:' . $skin . ':' . $radius . ':';
 		$output .= ( $noseconds == 'true' ||  $noseconds == '1' ) ? 'noSeconds:' : ':';
@@ -117,17 +117,6 @@ class CoolClock {
 		else
 			$output .= ':';
 
-/*		switch ( $scale ) {
-			case 'linear':
-			default:
-				break;
-			case 'logClock':
-				$output .= ':logClock';
-				break;
-			case 'logClockRev':
-				$output .= ':logClockRev';
-		}
-*/
 		$output .= '"></canvas>';
 		$output .= ( $subtext ) ? '<div style="width:100%;text-align:center;padding-bottom:10px">' . $subtext . '</div></div>' : '</div>';
 		
@@ -309,6 +298,11 @@ class CoolClock {
 		    		'digital24' => __('time (24h)','coolclock'),
 		    		'date' => __('date','coolclock')
 		    	);
+
+		// Misc translations
+		$stray = array(
+				'extra_settings' => __('Extra settings for the CoolClock widget.', 'coolclock') 
+			);
 		
 		// Title
 		$output = '<p><label for="' . $obj->get_field_id('title') . '">' . __('Title:') . '</label> ';
