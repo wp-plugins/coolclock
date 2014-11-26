@@ -30,14 +30,14 @@ Read more on http://status301.net/wordpress-plugins/coolclock/ or see [the FAQ's
 - Advanced positioning options (relative to background)
 - Advanced shortcode parameters (including background image and custom skin)
 - One extra clean skin for use with background image
-- Support on the [CoolClock Pro forum](http://status301.net/support/forum/coolclock-pro/)
+- Support on the [CoolClock Pro forum](https://premium.status301.net/support/forum/coolclock-pro/)
 
-Pro features come with the [CoolClock - Advanced extension](http://status301.net/coolclock-advanced/).
+Pro features come with the [CoolClock - Advanced extension](https://premium.status301.net/downloads/coolclock-advanced/).
 
 = Translators =
 
-- **Dutch** * R.A. van Hagen http://status301.net/ (version 2.9.5)
-- **French** * R.A. van Hagen http://status301.net/ (version 2.9.5)
+- **Dutch** * R.A. van Hagen http://status301.net/ (version 3.0)
+- **French** * R.A. van Hagen http://status301.net/ (version 3.0)
 - **Serbian** * Borisa Djuraskovic - WebHostingHub http://www.webhostinghub.com/ (version 2.9.4)
 - **Russian** * Наталия Завьялова - http://time-impressions.ru (version 2.9.8)
 
@@ -88,10 +88,11 @@ First of all, you can pick a preset skin. There are 21 skins made by other users
 - Align - left, center or right;
 - Subtext - optional text, centered below the clock.
 
-Then there are extra options availabe in the [CoolClock - Advanced extension](http://status301.net/coolclock-advanced/) which allow for more customisation:
+Then there are extra options availabe in the [CoolClock - Advanced extension](https://premium.status301.net/downloads/coolclock-advanced/) which allow for more customisation:
 
 - Background image - define the full URL or path to an image to serve as background;
 - Repeat image;
+- Background size - stretch or cover to make it match your clock size;
 - Background position - center, top, right, bottom or left of the wrapping div (define div size below);
 - Width and height - define the size of the wrapping div that holds the background image;
 - Background color - define a color value in hex or rgb(a) format, or a css color name;
@@ -146,13 +147,14 @@ The following parameters are available:
 
 Example: **[coolclock** **skin="chunkySwissOnBlack" radius="140" showdigital=digital12 align="left" /]**
 
-Then there are extra parameters and options availabe in the [CoolClock - Advanced extension](http://status301.net/coolclock-advanced/) which allow for more customisation:
+Then there are extra parameters and options availabe in the [CoolClock - Advanced extension](https://premium.status301.net/downloads/coolclock-advanced/) which allow for more customisation:
 
 - **showdigital** - extended with ‘digital24′ and ‘date’ options
 - **background_image** - define full URL or path to an image to serve as background
 - **background_height** - give a height in pixels (default: clock plus subtext height)
 - **background_width** - give a width in pixels  (default: clock width)
 - **background_color** - define a CSS color value in hex, rgb(a) format, or color name
+- **background_stretch** - CSS backround size options "cover" or "contain"
 - **background_position** - CSS positioning like "left top", "bottom", "10% 70%" or "10px 20px" (default: "left top")
 - **background_repeat** - background repetition options "repeat", "repeat-x", "repeat-y", "no-repeat" (default: "no-repeat")
 - **background_border_radius** - optional rounded corners value, higher is rounder
@@ -179,9 +181,9 @@ Please report any other issues on the [Support page](http://wordpress.org/suppor
 
 == Screenshots ==
 
-1. Example analog clock in sidebar. The background logo is added with the [CoolClock - Advanced extension](http://status301.net/coolclock-advanced/).
+1. Example analog clock in sidebar. The background logo is added with the [CoolClock - Advanced extension](https://premium.status301.net/downloads/coolclock-advanced/).
 
-2. Widget settings. The background options are availabe in the [CoolClock - Advanced extension](http://status301.net/coolclock-advanced/).
+2. Widget settings. The background options are availabe in the [CoolClock - Advanced extension](https://premium.status301.net/downloads/coolclock-advanced/).
 
 
 == Upgrade Notice ==
