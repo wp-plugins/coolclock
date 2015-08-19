@@ -5,7 +5,7 @@ Plugin URI: http://status301.net/wordpress-plugins/coolclock/
 Description: Add an analog clock to your sidebar.
 Text Domain: coolclock
 Domain Path: languages
-Version: 3.0
+Version: 3.1
 Author: RavanH
 Author URI: http://status301.net/
 */
@@ -15,7 +15,7 @@ Author URI: http://status301.net/
  */
 class CoolClock {
 
-	static $plugin_version = '3.0';
+	static $plugin_version = '3.1';
 
 	static $script_version = '3.0.0';
 
@@ -47,8 +47,8 @@ class CoolClock {
 			);
 
 	static $default_skins = array (
-	    		'swissRail',
-	    		'chunkySwiss',
+	    		'swissRail', // plugin default
+	    		'chunkySwiss', // script default
 	    		'chunkySwissOnBlack'
     		);
 
@@ -161,6 +161,20 @@ class CoolClock {
 	}
 
 	/** 
+	 * SCRIPTS 
+	 */
+
+	static function register_scripts()
+	{
+		$min = defined('WP_DEBUG') && WP_DEBUG ? '.min' : '';
+		
+		wp_register_script( 'coolclock', plugins_url( "/js/coolclock{$min}.js", __FILE__ ), array('jquery'), self::$script_version, true );
+		wp_register_script( 'coolclock-moreskins', plugins_url( "/js/moreskins{$min}.js", __FILE__ ), array('coolclock'), self::$script_version, true );
+		wp_register_script( 'excanvas', plugins_url( "/js/excanvas{$min}.js", __FILE__ ), array(), '73', true );
+
+	}
+
+	/** 
 	 * SHORTCODE 
 	 */
 
@@ -174,13 +188,15 @@ class CoolClock {
 		// set footer script flags
 		self::$add_script = true;
 
-		$skin = ( isset( $atts['skin'] ) ) 
-			? $atts['skin'] : 'swissRail';
+		if ( !isset( $atts['skin'] ) ) 
+			$atts['skin'] = self::$defaults['skin'];
 
 		if ( in_array( $atts['skin'], self::$more_skins ) )
 			self::$add_moreskins = true;
 
+		// get output
 		$output = self::canvas( $atts );
+
 		return apply_filters( 'coolclock_shortcode_advanced', $output, $atts, $content );
 	}
 
@@ -197,7 +213,7 @@ class CoolClock {
 	static function widget( $args, $instance, $number )
 	{
 		$skin = ( isset( $instance['skin'] ) ) 
-			? $instance['skin'] : 'swissRail';
+			? $instance['skin'] : self::$defaults['skin'];
 
 		// add custom skin parameters to the plugin skins array
 		if ( 'custom_'.$number == $skin )
@@ -387,9 +403,9 @@ class CoolClock {
 
 		// Advanced filter
 		if ( class_exists( 'CoolClockAdvanced' ) ) // add an upgrade notice
-			$advanced_form = '<p><strong>' . __('Background') . '</strong></p><p><strong>' . __('Please upgrade the CoolClock - Advanced extension.', 'coolclock') . '</strong> ' . __('You can download the new version using the remaining download credits and the link that you have received in the confirmation email after your first purchase.', 'coolclock') . ' <a href="http://status301.net/contact-en/">' . __('If you do not have that email anymore, please contact us.', 'coolclock') . '</a></p>' . '<p><strong>' . __('Do NOT resave widget settings before upgrading the Advanced extension or your advanced settings will be lost!', 'coolclock') . '</strong>';
+			$advanced_form = '<p><strong>' . __('Background') . '</strong></p><p><strong>' . __('Please upgrade the CoolClock - Advanced extension.', 'coolclock') . '</strong> ' . __('You can download the new version using the remaining download credits and the link that you have received in the confirmation email after your first purchase.', 'coolclock') . ' <a href="http://premium.status301.net/contact/">' . __('If you do not have that email anymore, please contact us.', 'coolclock') . '</a></p>' . '<p><strong>' . __('Do NOT resave widget settings before upgrading the Advanced extension or your advanced settings will be lost!', 'coolclock') . '</strong>';
 		else
-	    	$advanced_form = '<p><strong>' . __('Background') . '</strong></p><p><a href="http://status301.net/wordpress-plugins/coolclock-advanced/">' . __('Available in the Advanced extension &raquo;', 'coolclock') . '</a></p>';
+	    	$advanced_form = '<p><strong>' . __('Background') . '</strong></p><p><a href="http://premium.status301.net/downloads/coolclock-advanced/">' . __('Available in the Advanced extension &raquo;', 'coolclock') . '</a></p>';
 		
 		$output .= apply_filters( 'coolclock_widget_form_advanced', $advanced_form, $obj, $instance, $defaults );
 
@@ -400,48 +416,47 @@ class CoolClock {
 	 * INIT
 	 */
 
-	static function go()
-	{
-		add_action('plugins_loaded', create_function( '', "return load_plugin_textdomain( 'coolclock', false, dirname(plugin_basename( __FILE__ )).'/languages' );" ) );
-		add_action( 'init', array(__CLASS__, 'init' ) );
-		add_action( 'widgets_init', create_function( '', 'return register_widget("CoolClock_Widget");' ) );
-	}
- 
 	static function init()
 	{	
+		// text domain
+		add_action( 'plugins_loaded', create_function( '', "return load_plugin_textdomain( 'coolclock', false, dirname(plugin_basename( __FILE__ )).'/languages' );" ) );
+		
+		// shortcode
 		add_shortcode( 'coolclock', array( __CLASS__, 'handle_shortcode' ) );
+		
+		// widgets
+		add_action( 'widgets_init', create_function( '', 'return register_widget("CoolClock_Widget");' ) );
 
 		// allow shortcode in text widgets
 		add_filter('widget_text', 'do_shortcode', 11);
 
 		// prevent texturizing shortcode content
 		add_filter( 'no_texturize_shortcodes', array( __CLASS__, 'no_wptexturize') );
+		
+		// register scripts
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_scripts') );
 
-		if ( defined('WP_DEBUG') && false != WP_DEBUG ) {
-			wp_register_script( 'coolclock', plugins_url('/js/coolclock.js', __FILE__), array('jquery'), self::$script_version, true );
-			wp_register_script( 'coolclock-moreskins', plugins_url('/js/moreskins.js', __FILE__), array('coolclock'), self::$script_version, true );
-			wp_register_script( 'excanvas', plugins_url( '/js/excanvas.js', __FILE__ ), array(), '73', true );
-		} else {
-			wp_register_script( 'coolclock', plugins_url('/js/coolclock.min.js', __FILE__), array('jquery'), self::$script_version, true );
-			wp_register_script( 'coolclock-moreskins', plugins_url('/js/moreskins.min.js', __FILE__), array('coolclock'), self::$script_version, true );
-			wp_register_script( 'excanvas', plugins_url( '/js/excanvas.min.js', __FILE__ ), array(), '73', true );
-		}
-
+		// print scripts in footer
 		add_action( 'wp_footer', array( __CLASS__, 'print_scripts' ) );
 	}
 
 }
  
-CoolClock::go();
+CoolClock::init();
 
 /**
  * CoolClock Widget Class
  */
 class CoolClock_Widget extends WP_Widget {
 
-	/** constructor -- name this the same as the class above */
-	function CoolClock_Widget() {
-		parent::WP_Widget( 
+	/**  PHP4 constructor */
+	public function CoolClock_Widget() {
+		CoolClock_Widget::__construct();
+	}
+
+	/** PHP5+ constructor */
+	public function __construct() {
+		parent::__construct( 
 				'coolclock-widget', 
 				__('Analog Clock', 'coolclock'), 
 				array( 
@@ -456,7 +471,7 @@ class CoolClock_Widget extends WP_Widget {
 	}
  
 	/** @see WP_Widget::widget -- do not rename this */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
@@ -475,14 +490,14 @@ class CoolClock_Widget extends WP_Widget {
 	}
 
 	/** @see WP_Widget::update -- do not rename this */
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 
 		return CoolClock::update( $new_instance, $old_instance );
 
 	}
 
 	/** @see WP_Widget::form -- do not rename this */
-	function form( $instance ) {
+	public function form( $instance ) {
 
 		// Print output
 		echo CoolClock::form( $this, $instance );

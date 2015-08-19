@@ -3,8 +3,8 @@ Contributors: RavanH
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravanhagen%40gmail%2ecom&item_name=CoolClock%20for%20WordPress&item_number=1%2e3%2e4%2e9&no_shipping=0&tax=0&charset=UTF%2d8&currency_code=EUR
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode, logarithmic clock
 Requires at least: 2.9
-Tested up to: 4.2
-Stable tag: 3.0
+Tested up to: 4.3
+Stable tag: 3.1
 
 Show an analog clock on your WordPress site sidebar or in post and page content.
 
@@ -188,10 +188,14 @@ Please report any other issues on the [Support page](http://wordpress.org/suppor
 
 == Upgrade Notice ==
 
-= 3.0 =
-Responsiveness
+= 3.1 =
+Deprecating PHP4 style constructor + bugfix
 
 == Changelog ==
+
+= 3.1 =
+* Deprecating PHP4 style constructor for Widget
+* Bugfix undefined index
 
 = 3.0 =
 * Responsive canvas styling
