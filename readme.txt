@@ -2,9 +2,9 @@
 Contributors: RavanH
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravanhagen%40gmail%2ecom&item_name=CoolClock%20for%20WordPress&item_number=1%2e3%2e4%2e9&no_shipping=0&tax=0&charset=UTF%2d8&currency_code=EUR
 Tags: clock, analog clock, coolclock, javascript, jquery, widget, shortcode, logarithmic clock
-Requires at least: 2.9
+Requires at least: 3.2
 Tested up to: 4.3
-Stable tag: 3.1
+Stable tag: 3.2
 
 Show an analog clock on your WordPress site sidebar or in post and page content.
 
@@ -38,6 +38,7 @@ Pro features come with the [CoolClock - Advanced extension](https://premium.stat
 
 - **Dutch** * R.A. van Hagen http://status301.net/ (version 3.0)
 - **French** * R.A. van Hagen http://status301.net/ (version 3.0)
+- **German** * Manfred Mrak http://www.niftyfox.ch/ (version 3.2)
 - **Serbian** * Borisa Djuraskovic - WebHostingHub http://www.webhostinghub.com/ (version 2.9.4)
 - **Russian** * Наталия Завьялова - http://time-impressions.ru (version 2.9.8)
 
@@ -188,10 +189,14 @@ Please report any other issues on the [Support page](http://wordpress.org/suppor
 
 == Upgrade Notice ==
 
-= 3.1 =
-Deprecating PHP4 style constructor + bugfix
+= 3.2 =
+Dropped compatibility with PHP 4 and pre WP 3.2 
 
 == Changelog ==
+
+= 3.2 =
+* Dropped compatibility with PHP 4 and pre WP 3.2
+* German translation
 
 = 3.1 =
 * Deprecating PHP4 style constructor for Widget
