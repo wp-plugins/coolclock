@@ -38,6 +38,7 @@ Pro features come with the [CoolClock - Advanced extension](https://premium.stat
 
 - **Dutch** * R.A. van Hagen http://status301.net/ (version 3.0)
 - **French** * R.A. van Hagen http://status301.net/ (version 3.0)
+- **German** * Manfred Mrak http://www.niftyfox.ch/ (version 3.2)
 - **Serbian** * Borisa Djuraskovic - WebHostingHub http://www.webhostinghub.com/ (version 2.9.4)
 - **Russian** * Наталия Завьялова - http://time-impressions.ru (version 2.9.8)
 
@@ -195,6 +196,7 @@ Dropped compatibility with PHP 4 and pre WP 3.2
 
 = 3.2 =
 * Dropped compatibility with PHP 4 and pre WP 3.2 
+* German translation
 
 = 3.1 =
 * Deprecating PHP4 style constructor for Widget
